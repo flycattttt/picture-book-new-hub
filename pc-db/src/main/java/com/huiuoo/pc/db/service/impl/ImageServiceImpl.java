@@ -9,10 +9,9 @@ import com.huiuoo.pc.db.dao.ImageTagDao;
 import com.huiuoo.pc.db.dataobject.ImageDO;
 import com.huiuoo.pc.db.dataobject.ImageTagDO;
 import com.huiuoo.pc.db.dao.ImageDao;
-import com.huiuoo.pc.db.dto.ImageDTO;
 import com.huiuoo.pc.db.service.IImageService;
-import com.huiuoo.pc.db.vo.ImageRequest;
-import com.huiuoo.pc.db.vo.ImageTagResponse;
+import com.huiuoo.pc.db.vo.ImageCreateRequest;
+import com.huiuoo.pc.db.vo.ImageTagGetResponse;
 import com.qiniu.common.QiniuException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -21,7 +20,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.util.*;
-import java.util.stream.Collectors;
 
 /**
  * @项目名称：picture-book-app-new
@@ -40,7 +38,7 @@ public class ImageServiceImpl implements IImageService {
     private ImageTagDao imageTagDao;
 
     @Override
-    public List<ImageTagResponse> findByMainType(Integer mainType) throws BusinessException {
+    public List<ImageTagGetResponse> findByMainType(Integer mainType) throws BusinessException {
         if (mainType==null || mainType==0){
             throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR, "一级类别不能为空");
         }
@@ -49,17 +47,17 @@ public class ImageServiceImpl implements IImageService {
         if (CollectionUtils.isEmpty(imageDOList)){
             return null;
         }
-        List<ImageTagResponse> responseList = new ArrayList<>();
+        List<ImageTagGetResponse> responseList = new ArrayList<>();
         imageDOList.forEach(i->{
-            ImageTagResponse response = new ImageTagResponse();
+            ImageTagGetResponse response = new ImageTagGetResponse();
             response.setId(i.getId());
             response.setUrl(i.getUrl());
             response.setFollowType(i.getFollowType());
             response.setDescription(i.getDescription());
-            List<ImageTagResponse.ImageTagVO> imageTagVOList = new ArrayList<>();
+            List<ImageTagGetResponse.ImageTagVO> imageTagVOList = new ArrayList<>();
             // imgTag
             i.getImageTagDOS().forEach(t->{
-                ImageTagResponse.ImageTagVO imageTagVO = new ImageTagResponse.ImageTagVO();
+                ImageTagGetResponse.ImageTagVO imageTagVO = new ImageTagGetResponse.ImageTagVO();
                 imageTagVO.setTagId(t.getId());
                 imageTagVO.setTag(t.getImgTag());
                 imageTagVOList.add(imageTagVO);
@@ -85,7 +83,7 @@ public class ImageServiceImpl implements IImageService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public ImageDO insertImage(ImageRequest request, Long userId) throws QiniuException, BusinessException {
+    public ImageDO insertImage(ImageCreateRequest request, Long userId) throws QiniuException, BusinessException {
 
         String imageName = CommonUtils.generateImageName(
                 Objects.requireNonNull(request.getFile().getOriginalFilename()), ImageType.to(request.getMainType()));

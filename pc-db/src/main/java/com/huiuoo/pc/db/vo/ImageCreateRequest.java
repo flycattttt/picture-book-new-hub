@@ -5,10 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.util.List;
 
 /**
@@ -21,12 +18,14 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ImageRequest {
+public class ImageCreateRequest {
 
     @NotNull(message = "图片不能为空")
     private MultipartFile file;
 
     @NotNull(message = "图片主类别不能为空")
+    @Min(message = "图片主类别最小为1",value = 1)
+    @Max(message = "图片主类别最大为2",value = 2)
     private Integer mainType;
 
     @NotBlank(message = "图片副类别不能为空")

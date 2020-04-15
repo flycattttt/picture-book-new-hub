@@ -8,7 +8,7 @@ import com.huiuoo.pc.common.validator.ValidationResult;
 import com.huiuoo.pc.common.validator.ValidatorImpl;
 import com.huiuoo.pc.db.dataobject.ImageDO;
 import com.huiuoo.pc.db.service.IImageService;
-import com.huiuoo.pc.db.vo.ImageRequest;
+import com.huiuoo.pc.db.vo.ImageCreateRequest;
 import com.huiuoo.pc.web.common.jwt.AdminRequest;
 import com.qiniu.common.QiniuException;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class ImageController extends BaseController {
     }
 
     @PostMapping("uploadImage")
-    public CommonReturnType uploadImage(ImageRequest request) throws BusinessException, QiniuException {
+    public CommonReturnType uploadImage(ImageCreateRequest request) throws BusinessException, QiniuException {
 
         ValidationResult validate = validator.validate(request);
         if (validate.isHasErrors()){

@@ -3,9 +3,8 @@ package com.huiuoo.pc.db.service;
 
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.db.dataobject.UserDO;
-import com.huiuoo.pc.db.vo.OAuthRegRequest;
-import com.huiuoo.pc.db.vo.OAuthRequest;
-import org.springframework.stereotype.Component;
+import com.huiuoo.pc.db.vo.OAuthCreateRequest;
+import com.huiuoo.pc.db.vo.OAuthGetRequest;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -24,12 +23,9 @@ public interface IUserService {
     /** 用户手机号码登录 */
     UserDO login(String phone) throws BusinessException, NoSuchAlgorithmException;
 
-    /** 用户注册 */
-   // UserDO register(UserRegRequest registerRequest) throws BusinessException;
-
     /** 用户第三方授权登录 */
-    UserDO authLogin(OAuthRequest oAuthRequest) throws BusinessException;
+    UserDO authLogin(OAuthGetRequest oAuthRequest) throws BusinessException;
 
     /** 用户第三方授权注册 */
-    UserDO authRegister(OAuthRegRequest oAuthRegRequest) throws BusinessException;
+    UserDO authRegister(OAuthCreateRequest oAuthRegRequest) throws BusinessException;
 }

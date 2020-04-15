@@ -6,7 +6,7 @@ import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.common.response.CommonReturnType;
 import com.huiuoo.pc.db.dataobject.ImageDO;
 import com.huiuoo.pc.db.service.IImageService;
-import com.huiuoo.pc.db.vo.ImageTagResponse;
+import com.huiuoo.pc.db.vo.ImageTagGetResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,7 +32,7 @@ public class ImageController extends BaseController {
     @GetMapping("get/mainType/{mainType}")
     public CommonReturnType findImage(@PathVariable("mainType") Integer mainType) throws BusinessException {
 
-        List<ImageTagResponse> responses = imageService.findByMainType(mainType);
+        List<ImageTagGetResponse> responses = imageService.findByMainType(mainType);
         return CommonReturnType.create(responses);
     }
 
@@ -43,27 +43,5 @@ public class ImageController extends BaseController {
         List<ImageDO> typeAndTag = imageService.findByMainTypeAndTag(mainType, imgTag);
         return CommonReturnType.create(typeAndTag);
     }
-
-   /* @GetMapping("get")
-    public CommonReturnType findByEs(@RequestParam String des) {
-
-        Map<String,Object> map = new HashMap<>();
-        StopWatch stopWatch = new StopWatch();
-        stopWatch.start();
-
-        BoolQueryBuilder builder = QueryBuilders.boolQuery();
-        builder.should(QueryBuilders.matchPhraseQuery("description",des));
-        builder.should(QueryBuilders.matchPhraseQuery("follow_type",des));
-        String string = builder.toString();
-        System.out.println(string);
-
-        Page<ImageES> search = (Page<ImageES>) imageESDao.search(builder);
-        List<ImageES> content = search.getContent();
-        stopWatch.stop();
-        long millis = stopWatch.getTotalTimeMillis();
-        map.put("time",millis);
-        map.put("data",content);
-        return CommonReturnType.create(map);
-    }*/
 
 }

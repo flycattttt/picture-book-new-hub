@@ -2,8 +2,8 @@ package com.huiuoo.pc.db.service;
 
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.db.dataobject.ImageDO;
-import com.huiuoo.pc.db.vo.ImageRequest;
-import com.huiuoo.pc.db.vo.ImageTagResponse;
+import com.huiuoo.pc.db.vo.ImageCreateRequest;
+import com.huiuoo.pc.db.vo.ImageTagGetResponse;
 import com.qiniu.common.QiniuException;
 
 import java.util.List;
@@ -20,12 +20,12 @@ public interface IImageService {
 
 
     /** 描述： 根据图片一级类别查找  */
-    List<ImageTagResponse> findByMainType(Integer mainType) throws BusinessException;
+    List<ImageTagGetResponse> findByMainType(Integer mainType) throws BusinessException;
 
     /** 描述： 根据图片一级类别和标签查找  */
     List<ImageDO> findByMainTypeAndTag(Integer mainType, String imgTag) throws BusinessException;
 
-    ImageDO insertImage(ImageRequest request, Long userId) throws QiniuException, BusinessException;
-
+    /** 描述： 新增图片 */
+    ImageDO insertImage(ImageCreateRequest request, Long userId) throws QiniuException, BusinessException;
 
 }

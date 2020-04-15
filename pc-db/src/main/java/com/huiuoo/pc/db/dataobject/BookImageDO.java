@@ -17,8 +17,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "pb_book_cited_image")
-public class BookCitedImageDO {
+@Table(name = "pb_book_image")
+public class BookImageDO {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

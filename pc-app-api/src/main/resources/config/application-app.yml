@@ -7,7 +7,7 @@ spring-boot:
 server:
   servlet:
     context-path: /app
-  port: 8895
+  port: 8088
   tomcat:
     max-http-post-size: -1
     uri-encoding: UTF-8

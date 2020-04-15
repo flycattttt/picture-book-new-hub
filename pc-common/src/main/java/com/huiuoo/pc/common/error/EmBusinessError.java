@@ -10,6 +10,7 @@ public enum EmBusinessError implements CommonError{
 	UPLOAD_FILE_ERROR(10005,"上传文件发生异常"),
 	SEND_MESSAGE_CODE_ERROR(10006,"发送短信验证码发生异常"),
 	SEND_MESSAGE_CODE_FORBID(10008,"频繁获取验证码"),
+	UPLOAD_IMAGE_ERROR(10009,"上传图片发生异常"),
 
 	//用户错误类型20000
 	CAN_NOT_FIND_RECORD(20001,"未找到该实例"),
@@ -20,6 +21,8 @@ public enum EmBusinessError implements CommonError{
 	SMSCODE_IS_ERROR(20006,"验证码错误"),
 	PHONE_IS_EXIST(20007,"手机号已被注册"),
 	 OAUTH_IS_EXIST(20008,"授权账户已存在");
+
+
 
 	private int errCode;
 	private String errMsg;

@@ -11,8 +11,8 @@ import com.huiuoo.pc.db.dao.UserOAuthDao;
 import com.huiuoo.pc.db.dataobject.UserDO;
 import com.huiuoo.pc.db.dataobject.UserOAuthDO;
 import com.huiuoo.pc.db.service.IUserService;
-import com.huiuoo.pc.db.vo.OAuthRegRequest;
-import com.huiuoo.pc.db.vo.OAuthRequest;
+import com.huiuoo.pc.db.vo.OAuthCreateRequest;
+import com.huiuoo.pc.db.vo.OAuthGetRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,26 +71,9 @@ public class UserServiceImpl implements IUserService {
         return userDO;
     }
 
-/*    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public UserDO register(UserRegRequest request) throws BusinessException {
-        UserDO oldUser = userDao.findByPhone(request.getPhone());
-        if (oldUser != null) {
-            throw new BusinessException(EmBusinessError.PHONE_IS_EXIST);
-        }
-        UserDO userDO = new UserDO();
-        userDO.setName(request.getName());
-        userDO.setPhone(request.getPhone());
-        userDO.setIntegral(new BigDecimal(0));
-        userDO.setHeadImg("");
-        userDO.setSex(request.getSex()==null?SexType.OTHER.getType():request.getSex());
-        userDao.save(userDO);
-        return userDO;
-    }*/
-
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public UserDO authLogin(OAuthRequest oAuthRequest) throws BusinessException {
+    public UserDO authLogin(OAuthGetRequest oAuthRequest) throws BusinessException {
         UserOAuthDO oldOauthUser = userOAuthDao.findByOauthTypeAndOpenId(oAuthRequest.getOauthType(), oAuthRequest.getOpenId());
         if (oldOauthUser == null) {
             throw new BusinessException(EmBusinessError.CAN_NOT_FIND_RECORD, "未找到该授权用户");
@@ -117,7 +100,7 @@ public class UserServiceImpl implements IUserService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public UserDO authRegister(OAuthRegRequest oAuthRegRequest) throws BusinessException {
+    public UserDO authRegister(OAuthCreateRequest oAuthRegRequest) throws BusinessException {
         UserOAuthDO oldOauthUser = userOAuthDao.findByOauthTypeAndOpenId(oAuthRegRequest.getOauthType(), oAuthRegRequest.getOpenId());
 
         if (oldOauthUser!=null){

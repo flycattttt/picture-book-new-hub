@@ -12,8 +12,8 @@ public enum SexType {
     private Integer type;
     private String desc;
 
-    SexType(Integer status, String desc) {
-        this.type = status;
+    SexType(Integer type, String desc) {
+        this.type = type;
         this.desc = desc;
     }
 }

@@ -17,7 +17,7 @@ import javax.validation.constraints.NotNull;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OAuthRegRequest {
+public class OAuthCreateRequest {
     @NotBlank(message = "oauthType不能为空")
     private String oauthType;
     @NotBlank(message = "openId不能为空")

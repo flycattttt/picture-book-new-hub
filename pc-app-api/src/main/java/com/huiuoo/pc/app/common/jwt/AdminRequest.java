@@ -12,7 +12,7 @@ import java.util.Objects;
 public class AdminRequest {
     public static final String CURRENT_USER_ID = "app_current_admin_id";
 
-    public static Long getCurrentAdminId(){
+    public static Long getCurrentAdminId() {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         return (Long) request.getAttribute(AdminRequest.CURRENT_USER_ID);
     }

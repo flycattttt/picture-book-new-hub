@@ -12,8 +12,8 @@ import com.huiuoo.pc.common.validator.ValidationResult;
 import com.huiuoo.pc.common.validator.ValidatorImpl;
 import com.huiuoo.pc.db.dataobject.UserDO;
 import com.huiuoo.pc.db.service.IUserService;
-import com.huiuoo.pc.db.vo.OAuthRegRequest;
-import com.huiuoo.pc.db.vo.OAuthRequest;
+import com.huiuoo.pc.db.vo.OAuthCreateRequest;
+import com.huiuoo.pc.db.vo.OAuthGetRequest;
 import com.huiuoo.pc.db.vo.UserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
@@ -94,7 +94,7 @@ public class UserController extends BaseController {
             return CommonReturnType.create(token);
         }*/
     @PostMapping("authLogin")
-    public CommonReturnType authLogin(OAuthRequest oAuthRequest) throws BusinessException {
+    public CommonReturnType authLogin(OAuthGetRequest oAuthRequest) throws BusinessException {
         ValidationResult validate = validator.validate(oAuthRequest);
         if (validate.isHasErrors()) {
             throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR, validate.getErrMsg());
@@ -104,7 +104,7 @@ public class UserController extends BaseController {
     }
 
     @PostMapping("authRegister")
-    public CommonReturnType authRegister(OAuthRegRequest regRequest) throws BusinessException {
+    public CommonReturnType authRegister(OAuthCreateRequest regRequest) throws BusinessException {
 
         // 手机号码格式验证
         CommonUtils.validatorPhone(regRequest.getPhone());
