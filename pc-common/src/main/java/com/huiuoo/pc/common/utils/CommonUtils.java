@@ -19,10 +19,10 @@ import java.util.regex.Pattern;
  */
 public class CommonUtils {
 
-    public static String generateImageName(String fileName,String type) {
+    public static String generateImageUrl(String fileName,Integer type) {
 
         StringBuilder buffer = new StringBuilder();
-        buffer.append(type);
+        buffer.append(imgNamePrefix(type));
         //命名格式 bg_202003111739548_951.webp
         buffer.append(DateUtil.getMsTime());
         buffer.append("_");
@@ -35,6 +35,21 @@ public class CommonUtils {
         buffer.append(fileName.substring(fileName.lastIndexOf(".")));
         return buffer.toString();
     }
+
+    private static String imgNamePrefix(Integer eventType) {
+        switch (eventType) {
+            case 1:
+                return "bg_";
+            case 2:
+                return "element_";
+            case 3:
+                return "model_";
+            default:
+                return "other_";
+        }
+    }
+
+
     /**
      * 描述：获取 0~num 之间的int随机数
      */

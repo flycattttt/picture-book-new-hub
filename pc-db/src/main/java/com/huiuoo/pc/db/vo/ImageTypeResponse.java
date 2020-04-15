@@ -17,18 +17,25 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ImageTagGetResponse {
+public class ImageTypeResponse {
 
-    private Long id;
-    private String url;
+    private Long typeId;
     private String followType;
-    private String description;
-    private List<ImageTagVO> tagVOList;
+    private List<ImageVO> imageVOList;
 
     @Data
     @AllArgsConstructor
     @NoArgsConstructor
-    public static class ImageTagVO{
+    public static class ImageVO{
+        private Long imageId;
+        private String url;
+        private String description;
+        private List<TagVO> tagVOList;
+    }
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    public static class TagVO{
         private Long tagId;
         private String tag;
     }

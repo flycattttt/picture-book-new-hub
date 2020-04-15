@@ -31,15 +31,7 @@ public class ImageCreateRequest {
     @NotBlank(message = "图片副类别不能为空")
     private String followType;
 
-    @NotBlank(message = "图片描述不能为空")
     private String description;
 
-    @NotNull(message = "图片宽度不能为空")
-    private Integer width;
-
-    @NotNull(message = "图片高度不能为空")
-    private Integer height;
-
     private List<String> tagList;
-
 }

@@ -30,7 +30,7 @@ public class BookImageDO {
     private Long bookId;
 
     @Basic
-    @Column(name = "image_id_list",nullable = false)
-    private String imageIdList;
+    @Column(name = "image_list",nullable = false)
+    private String imageList;
 
 }

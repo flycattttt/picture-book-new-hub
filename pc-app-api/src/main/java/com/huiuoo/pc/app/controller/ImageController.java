@@ -6,7 +6,8 @@ import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.common.response.CommonReturnType;
 import com.huiuoo.pc.db.dataobject.ImageDO;
 import com.huiuoo.pc.db.service.IImageService;
-import com.huiuoo.pc.db.vo.ImageTagGetResponse;
+import com.huiuoo.pc.db.vo.ImageResponse;
+import com.huiuoo.pc.db.vo.ImageTypeResponse;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,16 +33,16 @@ public class ImageController extends BaseController {
     @GetMapping("get/mainType/{mainType}")
     public CommonReturnType findImage(@PathVariable("mainType") Integer mainType) throws BusinessException {
 
-        List<ImageTagGetResponse> responses = imageService.findByMainType(mainType);
+        List<ImageTypeResponse> responses = imageService.findByMainType(mainType);
         return CommonReturnType.create(responses);
     }
 
-    @GetMapping("get/mainType/{mainType}/imgTag")
-    public CommonReturnType findImage(@PathVariable("mainType") Integer mainType,
+    @GetMapping("get")
+    public CommonReturnType findImage(@RequestParam("mainType") Integer mainType,
                                       @RequestParam("imgTag") String imgTag) throws BusinessException {
 
-        List<ImageDO> typeAndTag = imageService.findByMainTypeAndTag(mainType, imgTag);
-        return CommonReturnType.create(typeAndTag);
+        List<ImageResponse> responses = imageService.findByMainTypeAndTag(mainType, imgTag);
+        return CommonReturnType.create(responses);
     }
 
 }

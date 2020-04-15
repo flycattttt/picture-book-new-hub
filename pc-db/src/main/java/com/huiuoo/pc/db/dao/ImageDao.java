@@ -18,8 +18,6 @@ import java.util.List;
 @Repository
 public interface ImageDao extends JpaRepository<ImageDO, Long> {
 
-    List<ImageDO> findByMainType(Integer mainType);
-
-    List<ImageDO> findByMainTypeAndIdIn(Integer mainType , List<Long> idList);
+    List<ImageDO> findAllByImageTypeIdAndIdIn(Integer mainType , List<Long> idList);
 
 }

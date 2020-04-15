@@ -9,6 +9,7 @@ import com.huiuoo.pc.common.validator.ValidatorImpl;
 import com.huiuoo.pc.db.dataobject.ImageDO;
 import com.huiuoo.pc.db.service.IImageService;
 import com.huiuoo.pc.db.vo.ImageCreateRequest;
+import com.huiuoo.pc.db.vo.ImageCreateResponse;
 import com.huiuoo.pc.web.common.jwt.AdminRequest;
 import com.qiniu.common.QiniuException;
 import lombok.extern.slf4j.Slf4j;
@@ -36,15 +37,18 @@ public class ImageController extends BaseController {
         this.validator = validator;
     }
 
-    @PostMapping("uploadImage")
-    public CommonReturnType uploadImage(ImageCreateRequest request) throws BusinessException, QiniuException {
+    @PostMapping("create")
+    public CommonReturnType create(ImageCreateRequest request) throws BusinessException, QiniuException {
 
+        if (request.getFile().isEmpty()){
+            throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR,"图片不能为空");
+        }
         ValidationResult validate = validator.validate(request);
         if (validate.isHasErrors()){
             throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR,validate.getErrMsg());
         }
-        ImageDO imageDO = imageService.insertImage(request, AdminRequest.getCurrentAdminId());
-        return CommonReturnType.create(imageDO.getUrl());
+        ImageCreateResponse response = imageService.createImage(request, AdminRequest.getCurrentAdminId());
+        return CommonReturnType.create(response);
     }
 
 }

@@ -1,20 +1,25 @@
 package com.huiuoo.pc.db.service.impl;
 
-import com.huiuoo.pc.common.constant.ImageType;
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.common.error.EmBusinessError;
 import com.huiuoo.pc.common.utils.CommonUtils;
 import com.huiuoo.pc.common.utils.QiniuUtils;
 import com.huiuoo.pc.db.dao.ImageTagDao;
+import com.huiuoo.pc.db.dao.ImageTypeDao;
 import com.huiuoo.pc.db.dataobject.ImageDO;
 import com.huiuoo.pc.db.dataobject.ImageTagDO;
 import com.huiuoo.pc.db.dao.ImageDao;
+import com.huiuoo.pc.db.dataobject.ImageTypeDO;
 import com.huiuoo.pc.db.service.IImageService;
 import com.huiuoo.pc.db.vo.ImageCreateRequest;
-import com.huiuoo.pc.db.vo.ImageTagGetResponse;
+import com.huiuoo.pc.db.vo.ImageCreateResponse;
+import com.huiuoo.pc.db.vo.ImageResponse;
+import com.huiuoo.pc.db.vo.ImageTypeResponse;
 import com.qiniu.common.QiniuException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,39 +42,47 @@ public class ImageServiceImpl implements IImageService {
     @Resource
     private ImageTagDao imageTagDao;
 
+    @Autowired
+    private ImageTypeDao imageTypeDao;
+
     @Override
-    public List<ImageTagGetResponse> findByMainType(Integer mainType) throws BusinessException {
+    public List<ImageTypeResponse> findByMainType(Integer mainType) throws BusinessException {
         if (mainType==null || mainType==0){
             throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR, "一级类别不能为空");
         }
         // 根据一级类别查询
-        List<ImageDO> imageDOList = imageDao.findByMainType(mainType);
-        if (CollectionUtils.isEmpty(imageDOList)){
-            return null;
-        }
-        List<ImageTagGetResponse> responseList = new ArrayList<>();
-        imageDOList.forEach(i->{
-            ImageTagGetResponse response = new ImageTagGetResponse();
-            response.setId(i.getId());
-            response.setUrl(i.getUrl());
-            response.setFollowType(i.getFollowType());
-            response.setDescription(i.getDescription());
-            List<ImageTagGetResponse.ImageTagVO> imageTagVOList = new ArrayList<>();
-            // imgTag
-            i.getImageTagDOS().forEach(t->{
-                ImageTagGetResponse.ImageTagVO imageTagVO = new ImageTagGetResponse.ImageTagVO();
-                imageTagVO.setTagId(t.getId());
-                imageTagVO.setTag(t.getImgTag());
-                imageTagVOList.add(imageTagVO);
-            });
+        List<ImageTypeDO> imageTypeDOS = imageTypeDao.findAllByMainType(mainType);
+        List<ImageTypeResponse> responseList = new ArrayList<>();
 
-            response.setTagVOList(imageTagVOList);
-            responseList.add(response);
+        // 图片类别
+        imageTypeDOS.forEach(i->{
+            ImageTypeResponse response = new ImageTypeResponse();
+            response.setTypeId(i.getId());
+            response.setFollowType(i.getFollowType());
+            List<ImageTypeResponse.ImageVO> imageVOList = new ArrayList<>();
+            // 图片
+            i.getImageDOS().forEach(d->{
+                ImageTypeResponse.ImageVO imageVO = new ImageTypeResponse.ImageVO();
+                imageVO.setImageId(d.getId());
+                imageVO.setDescription(d.getDescription());
+                imageVO.setUrl(d.getUrl());
+                List<ImageTypeResponse.TagVO> tagVOList = new ArrayList<>();
+                // 图片标签
+                d.getImageTagDOS().forEach(t->{
+                    ImageTypeResponse.TagVO tagVO = new ImageTypeResponse.TagVO();
+                    tagVO.setTagId(t.getId());
+                    tagVO.setTag(t.getImgTag());
+                    tagVOList.add(tagVO);
+                });
+                imageVO.setTagVOList(tagVOList);
+                imageVOList.add(imageVO);
+            });
+            response.setImageVOList(imageVOList);
         });
         return responseList;
     }
     @Override
-    public List<ImageDO> findByMainTypeAndTag(Integer mainType, String imgTag) throws BusinessException {
+    public List<ImageResponse> findByMainTypeAndTag(Integer mainType, String imgTag) throws BusinessException {
         if (mainType==null || mainType==0){
             throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR, "一级类别不能为空");
         }
@@ -78,27 +91,54 @@ public class ImageServiceImpl implements IImageService {
         }
 
         List<Long> tag = imageTagDao.findImageIdByTag(imgTag);
-        return imageDao.findByMainTypeAndIdIn(mainType, tag);
+        if (CollectionUtils.isEmpty(tag)){
+            return null;
+        }
+        List<ImageDO> imageDOList = imageDao.findAllByImageTypeIdAndIdIn(mainType, tag);
+        if (CollectionUtils.isEmpty(imageDOList)){
+            return null;
+        }
+
+        List<ImageResponse> responseList = new ArrayList<>();
+        imageDOList.forEach(i->{
+            ImageResponse response = new ImageResponse();
+            BeanUtils.copyProperties(i,response);
+            responseList.add(response);
+        });
+        return responseList;
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public ImageDO insertImage(ImageCreateRequest request, Long userId) throws QiniuException, BusinessException {
+    public ImageCreateResponse createImage(ImageCreateRequest request, Long userId) throws QiniuException, BusinessException {
 
-        String imageName = CommonUtils.generateImageName(
-                Objects.requireNonNull(request.getFile().getOriginalFilename()), ImageType.to(request.getMainType()));
+        // 判断类别是否存在
+        ImageTypeDO imageTypeDO = imageTypeDao.findByMainTypeAndFollowType(request.getMainType()
+                , request.getFollowType());
 
-        ImageDO imageDO = new ImageDO(
-                imageName,
-                request.getMainType(),
-                request.getFollowType(),
-                request.getDescription(),
-                request.getFile().getSize(),
-                request.getWidth(),
-                request.getHeight(),
-                userId
-        );
+        if (imageTypeDO == null){
+            imageTypeDO = new ImageTypeDO(
+                    request.getMainType(),
+                    request.getFollowType()
+            );
+            imageTypeDao.save(imageTypeDO);
+        }
+
+        // 生成图片url名称
+        String imageUrl = CommonUtils.generateImageUrl(
+                Objects.requireNonNull(request.getFile().getOriginalFilename()), request.getMainType());
+
+        ImageDO imageDO = new ImageDO();
+
+        imageDO.setUrl(imageUrl);
+        imageDO.setImageTypeId(imageTypeDO.getId());
+        imageDO.setDescription(StringUtils.isBlank(request.getDescription())?"":request.getDescription());
+        imageDO.setSize(request.getFile().getSize());
+        imageDO.setAdminId(userId);
+        imageDO.setCreateTime(new Date());
+        imageDO.setUpdateTime(imageDO.getCreateTime());
         ImageDO saveImage = imageDao.save(imageDO);
+
         if (CollectionUtils.isNotEmpty(request.getTagList())) {
             // 去除重复标签
             List<String> uniqueTag = new ArrayList<>(new HashSet<>(request.getTagList()));
@@ -109,7 +149,8 @@ public class ImageServiceImpl implements IImageService {
             });
             imageTagDao.saveAll(imageTagDOS);
         }
-        QiniuUtils.uploadImage(request.getFile(), imageName);
-        return saveImage;
+        // 上传图片至七牛云
+        QiniuUtils.uploadImage(request.getFile(), imageUrl);
+        return new ImageCreateResponse(imageDO.getId(),imageDO.getUrl());
     }
 }
