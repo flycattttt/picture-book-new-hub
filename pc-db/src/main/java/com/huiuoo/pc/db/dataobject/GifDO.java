@@ -55,4 +55,8 @@ public class GifDO {
     @Basic
     @Column(name = "update_time",nullable = false)
     private Date updateTime;
+
+    @Basic
+    @Column(name = "delete",nullable = false)
+    private Integer delete;
 }

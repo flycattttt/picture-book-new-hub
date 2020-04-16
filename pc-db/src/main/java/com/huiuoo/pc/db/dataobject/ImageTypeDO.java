@@ -35,6 +35,10 @@ public class ImageTypeDO {
     @Column(name = "follow_type",nullable = false)
     private String followType;
 
+    @Basic
+    @Column(name = "delete",nullable = false)
+    private Integer delete;
+
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="image_type_id")

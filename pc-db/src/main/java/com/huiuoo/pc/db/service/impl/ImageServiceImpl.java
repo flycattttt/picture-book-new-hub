@@ -1,14 +1,15 @@
 package com.huiuoo.pc.db.service.impl;
 
+import com.huiuoo.pc.common.constant.CommonStatus;
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.common.error.EmBusinessError;
 import com.huiuoo.pc.common.utils.CommonUtils;
 import com.huiuoo.pc.common.utils.QiniuUtils;
+import com.huiuoo.pc.db.dao.ImageDao;
 import com.huiuoo.pc.db.dao.ImageTagDao;
 import com.huiuoo.pc.db.dao.ImageTypeDao;
 import com.huiuoo.pc.db.dataobject.ImageDO;
 import com.huiuoo.pc.db.dataobject.ImageTagDO;
-import com.huiuoo.pc.db.dao.ImageDao;
 import com.huiuoo.pc.db.dataobject.ImageTypeDO;
 import com.huiuoo.pc.db.service.IImageService;
 import com.huiuoo.pc.db.vo.ImageCreateRequest;
@@ -19,11 +20,9 @@ import com.qiniu.common.QiniuException;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.annotation.Resource;
 import java.util.*;
 
 /**
@@ -36,22 +35,26 @@ import java.util.*;
 @Service
 public class ImageServiceImpl implements IImageService {
 
-    @Resource
-    private ImageDao imageDao;
+    private final ImageDao imageDao;
 
-    @Resource
-    private ImageTagDao imageTagDao;
+    private final ImageTagDao imageTagDao;
 
-    @Autowired
-    private ImageTypeDao imageTypeDao;
+    private final ImageTypeDao imageTypeDao;
+
+    public ImageServiceImpl(ImageDao imageDao, ImageTagDao imageTagDao, ImageTypeDao imageTypeDao) {
+        this.imageDao = imageDao;
+        this.imageTagDao = imageTagDao;
+        this.imageTypeDao = imageTypeDao;
+    }
 
     @Override
     public List<ImageTypeResponse> findByMainType(Integer mainType) throws BusinessException {
         if (mainType==null || mainType==0){
             throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR, "一级类别不能为空");
         }
-        // 根据一级类别查询
-        List<ImageTypeDO> imageTypeDOS = imageTypeDao.findAllByMainType(mainType);
+        // 查询正在使用的类别
+        List<ImageTypeDO> imageTypeDOS = imageTypeDao.findAllByMainTypeAndDelete(mainType
+                ,CommonStatus.VALID.getStatus());
         List<ImageTypeResponse> responseList = new ArrayList<>();
 
         // 图片类别
@@ -63,19 +66,22 @@ public class ImageServiceImpl implements IImageService {
             // 图片
             i.getImageDOS().forEach(d->{
                 ImageTypeResponse.ImageVO imageVO = new ImageTypeResponse.ImageVO();
-                imageVO.setImageId(d.getId());
-                imageVO.setDescription(d.getDescription());
-                imageVO.setUrl(d.getUrl());
-                List<ImageTypeResponse.TagVO> tagVOList = new ArrayList<>();
-                // 图片标签
-                d.getImageTagDOS().forEach(t->{
-                    ImageTypeResponse.TagVO tagVO = new ImageTypeResponse.TagVO();
-                    tagVO.setTagId(t.getId());
-                    tagVO.setTag(t.getImgTag());
-                    tagVOList.add(tagVO);
-                });
-                imageVO.setTagVOList(tagVOList);
-                imageVOList.add(imageVO);
+                // 获取有效状态图片
+                if (d.getDelete().equals(CommonStatus.VALID.getStatus())){
+                    imageVO.setImageId(d.getId());
+                    imageVO.setDescription(d.getDescription());
+                    imageVO.setUrl(d.getUrl());
+                    List<ImageTypeResponse.TagVO> tagVOList = new ArrayList<>();
+                    // 图片标签
+                    d.getImageTagDOS().forEach(t->{
+                        ImageTypeResponse.TagVO tagVO = new ImageTypeResponse.TagVO();
+                        tagVO.setTagId(t.getId());
+                        tagVO.setTag(t.getImgTag());
+                        tagVOList.add(tagVO);
+                    });
+                    imageVO.setTagVOList(tagVOList);
+                    imageVOList.add(imageVO);
+                }
             });
             response.setImageVOList(imageVOList);
         });
@@ -137,6 +143,7 @@ public class ImageServiceImpl implements IImageService {
         imageDO.setAdminId(userId);
         imageDO.setCreateTime(new Date());
         imageDO.setUpdateTime(imageDO.getCreateTime());
+        imageDO.setDelete(CommonStatus.VALID.getStatus());
         ImageDO saveImage = imageDao.save(imageDO);
 
         if (CollectionUtils.isNotEmpty(request.getTagList())) {

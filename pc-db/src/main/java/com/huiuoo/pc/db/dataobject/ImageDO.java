@@ -56,6 +56,10 @@ public class ImageDO {
     @Column(name = "update_time",nullable = false)
     private Date updateTime;
 
+    @Basic
+    @Column(name = "delete",nullable = false)
+    private Integer delete;
+
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="image_id")

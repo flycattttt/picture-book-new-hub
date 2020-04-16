@@ -18,6 +18,7 @@ import java.util.List;
 @Repository
 public interface ImageDao extends JpaRepository<ImageDO, Long> {
 
+    @Query("SELECT i from ImageTypeDO t LEFT JOIN ImageDO i on t.id = i.imageTypeId and t.delete = 1 and i.delete = 1")
     List<ImageDO> findAllByImageTypeIdAndIdIn(Integer mainType , List<Long> idList);
 
 }
