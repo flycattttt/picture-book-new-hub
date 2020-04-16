@@ -9,12 +9,12 @@ import java.util.Objects;
 /**
  * Created by mickey on 2018/11/22.
  */
-public class AdminRequest {
-    public static final String CURRENT_USER_ID = "app_current_admin_id";
+public class JwtUserInfo {
+    public static final String CURRENT_USER_ID = "app_current_user_id";
 
-    public static Long getCurrentAdminId() {
+    public static Long getCurrentUserId() {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        return (Long) request.getAttribute(AdminRequest.CURRENT_USER_ID);
+        return (Long) request.getAttribute(JwtUserInfo.CURRENT_USER_ID);
     }
 
 }

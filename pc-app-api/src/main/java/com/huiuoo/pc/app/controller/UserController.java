@@ -2,6 +2,7 @@ package com.huiuoo.pc.app.controller;
 
 import com.huiuoo.pc.app.common.jwt.JwtToken;
 import com.huiuoo.pc.common.advice.BaseController;
+import com.huiuoo.pc.common.annotation.IgnoreJwtVerify;
 import com.huiuoo.pc.common.constant.EmRedisKey;
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.common.error.EmBusinessError;
@@ -44,6 +45,7 @@ public class UserController extends BaseController {
     @Autowired
     private RedisUtil redisUtil;
 
+    @IgnoreJwtVerify
     @GetMapping("sendSms")
     public CommonReturnType senSms(@RequestParam("phone") String phone) throws BusinessException {
 

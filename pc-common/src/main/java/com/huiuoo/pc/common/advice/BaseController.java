@@ -28,39 +28,45 @@ public class BaseController {
 	public Object handlerException(Exception ex, HttpServletRequest request) {
 
 		Map<String, Object> dataObject = new HashMap<String, Object>();
+		int code;
+		String message;
+
 		if (ex instanceof BusinessException) {
 			//自定义的异常
 			BusinessException business = (BusinessException) ex;
-			dataObject.put("errCode", business.getErrCode());
-			dataObject.put("errMsg", business.getErrMsg());
-			log.warn("全局业务处理异常 >> 自定义异常 请求URL:{},错误信息:{}",request.getRequestURI(),business.getErrMsg());
+			code = business.getErrCode();
+			message =business.getErrMsg();
+			log.warn("全局业务处理异常 >> 自定义异常 请求URL:{},错误信息:{}",request.getRequestURI(),message);
 		}else if(ex instanceof HttpMessageNotReadableException){
 			//参数缺失异常
-			dataObject.put("errCode", EmBusinessError.REQUEST_PARAM_ERROR.getErrCode());
-			dataObject.put("errMsg", EmBusinessError.REQUEST_PARAM_ERROR.getErrMsg());
-			log.warn("全局业务处理异常 >> 参数缺失 请求URL:{},错误信息:{}",request.getRequestURI(),ex.getMessage());
+			code = EmBusinessError.REQUEST_PARAM_ERROR.getErrCode();
+			message =EmBusinessError.REQUEST_PARAM_ERROR.getErrMsg();
+
+			log.warn("全局业务处理异常 >> 参数缺失 请求URL:{},错误信息:{}",request.getRequestURI(),message);
 		}else if(ex instanceof HttpRequestMethodNotSupportedException){
 			//请求方法类型错误
-			dataObject.put("errCode", EmBusinessError.METHOD_NOT_SUPPORETD.getErrCode());
-			dataObject.put("errMsg", EmBusinessError.METHOD_NOT_SUPPORETD.getErrMsg());
-			log.warn("全局业务处理异常 >> 请求方法类型错误 请求URL:{},错误信息:{}",request.getRequestURI(),ex.getMessage());
+			code = EmBusinessError.METHOD_NOT_SUPPORETD.getErrCode();
+			message = EmBusinessError.METHOD_NOT_SUPPORETD.getErrMsg();
+
+			log.warn("全局业务处理异常 >> 请求方法类型错误 请求URL:{},错误信息:{}",request.getRequestURI(),message);
 		}else if(ex instanceof NullPointerException){
 			//空指针异常
-			dataObject.put("errCode", EmBusinessError.NULL_POINTER.getErrCode());
-			dataObject.put("errMsg", EmBusinessError.NULL_POINTER.getErrMsg());
-			log.warn("全局业务处理异常 >> 空指针异常 请求URL:{},错误信息:{}",request.getRequestURI(),ex.getMessage());
+			code = EmBusinessError.NULL_POINTER.getErrCode();
+			message = EmBusinessError.NULL_POINTER.getErrMsg();
+
+			log.warn("全局业务处理异常 >> 空指针异常 请求URL:{},错误信息:{}",request.getRequestURI(),message);
 		}else if(ex instanceof QiniuException){
 			//空指针异常
-			dataObject.put("errCode", EmBusinessError.UPLOAD_FILE_ERROR.getErrCode());
-			dataObject.put("errMsg", EmBusinessError.UPLOAD_FILE_ERROR.getErrMsg());
-			log.warn("全局业务处理异常 >> 上传文件发生异常 请求URL:{},错误信息:{}",request.getRequestURI(),ex.getMessage());
+			code = EmBusinessError.UPLOAD_FILE_ERROR.getErrCode();
+			message = EmBusinessError.UPLOAD_FILE_ERROR.getErrMsg();
+			log.warn("全局业务处理异常 >> 上传文件发生异常 请求URL:{},错误信息:{}",request.getRequestURI(),message);
 		}else{
-			//未知错误,返回错误信息
-			dataObject.put("errCode", EmBusinessError.UNKNOW_ERROR.getErrCode());
-			dataObject.put("errMsg", ex.getMessage());
-			log.warn("全局业务处理异常 >> 未知错误 请求URL:{},错误信息:{}",request.getRequestURI(),ex.getMessage());
+			//未知错误
+			code = EmBusinessError.UNKNOW_ERROR.getErrCode();
+			message = EmBusinessError.UNKNOW_ERROR.getErrMsg();
+			log.warn("全局业务处理异常 >> 未知错误 请求URL:{},错误信息:{}",request.getRequestURI(),message);
 		}
-		return CommonReturnType.create(dataObject, "fail");
+		return CommonReturnType.create(code, message,null);
 	}
 
 }

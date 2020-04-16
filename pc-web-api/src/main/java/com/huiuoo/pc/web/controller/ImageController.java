@@ -6,11 +6,10 @@ import com.huiuoo.pc.common.error.EmBusinessError;
 import com.huiuoo.pc.common.response.CommonReturnType;
 import com.huiuoo.pc.common.validator.ValidationResult;
 import com.huiuoo.pc.common.validator.ValidatorImpl;
-import com.huiuoo.pc.db.dataobject.ImageDO;
 import com.huiuoo.pc.db.service.IImageService;
 import com.huiuoo.pc.db.vo.ImageCreateRequest;
 import com.huiuoo.pc.db.vo.ImageCreateResponse;
-import com.huiuoo.pc.web.common.jwt.AdminRequest;
+import com.huiuoo.pc.web.common.jwt.JwtAdminInfo;
 import com.qiniu.common.QiniuException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -47,7 +46,7 @@ public class ImageController extends BaseController {
         if (validate.isHasErrors()){
             throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR,validate.getErrMsg());
         }
-        ImageCreateResponse response = imageService.createImage(request, AdminRequest.getCurrentAdminId());
+        ImageCreateResponse response = imageService.createImage(request, JwtAdminInfo.getCurrentAdminId());
         return CommonReturnType.create(response);
     }
 

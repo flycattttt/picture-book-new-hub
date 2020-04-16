@@ -3,6 +3,7 @@ package com.huiuoo.pc.web.common.jwt;
 /**
  * Created by mickey on 2018/10/25.
  */
+
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
@@ -63,7 +64,7 @@ public class VerifyCodeUtils {
             // 画字符
             graphic.drawString(
                     chars[n] + "", i * WIDTH / SIZE, HEIGHT * 2 / 3);
-            log.info(chars[n]+"");
+            log.info(chars[n] + "");
             // 记录字符
             sb.append(chars[n]);
         }

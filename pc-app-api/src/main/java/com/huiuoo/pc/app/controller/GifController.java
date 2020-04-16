@@ -2,6 +2,7 @@ package com.huiuoo.pc.app.controller;
 
 
 import com.huiuoo.pc.common.advice.BaseController;
+import com.huiuoo.pc.common.annotation.IgnoreJwtVerify;
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.common.response.CommonReturnType;
 import com.huiuoo.pc.db.service.IGifService;
@@ -31,6 +32,7 @@ public class GifController extends BaseController {
         this.gifService = gifService;
     }
 
+    @IgnoreJwtVerify
     @GetMapping("list")
     public CommonReturnType findAll() {
         return CommonReturnType.create(gifService.findAllGif());

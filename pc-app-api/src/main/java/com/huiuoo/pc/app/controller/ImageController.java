@@ -1,7 +1,9 @@
 package com.huiuoo.pc.app.controller;
 
 
+import com.huiuoo.pc.app.common.jwt.JwtUserInfo;
 import com.huiuoo.pc.common.advice.BaseController;
+import com.huiuoo.pc.common.annotation.IgnoreJwtVerify;
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.common.response.CommonReturnType;
 import com.huiuoo.pc.db.dataobject.ImageDO;
@@ -30,6 +32,7 @@ public class ImageController extends BaseController {
         this.imageService = imageService;
     }
 
+    @IgnoreJwtVerify
     @GetMapping("get/mainType/{mainType}")
     public CommonReturnType findImage(@PathVariable("mainType") Integer mainType) throws BusinessException {
 
@@ -37,8 +40,9 @@ public class ImageController extends BaseController {
         return CommonReturnType.create(responses);
     }
 
+    @IgnoreJwtVerify
     @GetMapping("get")
-    public CommonReturnType findImage(@RequestParam("mainType") Integer mainType,
+    public CommonReturnType get(@RequestParam("mainType") Integer mainType,
                                       @RequestParam("imgTag") String imgTag) throws BusinessException {
 
         List<ImageResponse> responses = imageService.findByMainTypeAndTag(mainType, imgTag);
