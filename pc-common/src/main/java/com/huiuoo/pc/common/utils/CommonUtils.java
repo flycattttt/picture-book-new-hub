@@ -7,6 +7,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.*;
+import java.util.function.Supplier;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,7 +49,6 @@ public class CommonUtils {
                 return "other_";
         }
     }
-
 
     /**
      * 描述：获取 0~num 之间的int随机数

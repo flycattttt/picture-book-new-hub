@@ -1,7 +1,9 @@
 package com.huiuoo.pc.db.dao;
 
 import com.alibaba.fastjson.JSON;
+import com.huiuoo.pc.common.utils.CommonUtils;
 import com.huiuoo.pc.db.dataobject.ImageDO;
+import com.huiuoo.pc.db.dataobject.UserDO;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +11,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @项目名称：picture-book-new
@@ -31,6 +35,8 @@ public class TagTest {
 
     @Test
     public void test(){
+
+
 
     }
 

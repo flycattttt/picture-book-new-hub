@@ -29,8 +29,16 @@ public class ImageDO {
     private Long id;
 
     @Basic
-    @Column(name = "image_type_id",nullable = false)
-    private Long imageTypeId;
+    @Column(name = "type",nullable = false)
+    private Integer type;
+
+    @Basic
+    @Column(name = "material_type",nullable = false)
+    private String materialType;
+
+    @Basic
+    @Column(name = "model",nullable = false)
+    private String model;
 
     @Basic
     @Column(name = "url",nullable = false)
@@ -57,8 +65,8 @@ public class ImageDO {
     private Date updateTime;
 
     @Basic
-    @Column(name = "delete",nullable = false)
-    private Integer delete;
+    @Column(name = "deleted",nullable = false)
+    private Integer deleted;
 
     @JsonIgnore
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY)

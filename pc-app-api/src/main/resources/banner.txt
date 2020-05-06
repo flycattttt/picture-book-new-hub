@@ -1,10 +1,25 @@
-${AnsiColor.BRIGHT_CYAN} _____               _                ${AnsiColor.BLUE} ______  _             _
-${AnsiColor.BRIGHT_CYAN}/  ___|             (_)               ${AnsiColor.BLUE} | ___ \| |           | |
-${AnsiColor.BRIGHT_CYAN}\ `--.  _ __   _ __  _  _ __    __ _  ${AnsiColor.BLUE} | |_/ /| |  __ _   __| |  ___
-${AnsiColor.BRIGHT_CYAN} `--. \| '_ \ | '__|| || '_ \  / _` | ${AnsiColor.BLUE} | ___ \| | / _` | / _` | / _ \
-${AnsiColor.BRIGHT_CYAN}/\__/ /| |_) || |   | || | | || (_| | ${AnsiColor.BLUE} | |_/ /| || (_| || (_| ||  __/
-${AnsiColor.BRIGHT_CYAN}\____/ | .__/ |_|   |_||_| |_| \__, | ${AnsiColor.BLUE} \____/ |_| \__,_| \__,_| \___|
-${AnsiColor.BRIGHT_CYAN}       | |                      __/ |
-${AnsiColor.BRIGHT_CYAN}       |_|                     |___/
 
-${AnsiColor.BLUE}:: SpringBlade :: ${spring.application.name}:${AnsiColor.RED}${blade.env}${AnsiColor.BLUE} :: Running SpringBoot ${spring-boot.version} :: ${AnsiColor.BRIGHT_BLACK}
+        ${AnsiColor.BRIGHT_RED}            .-/+oooossssss${AnsiColor.BLACK}yNy${AnsiColor.BRIGHT_RED}oooo+/-.
+        ${AnsiColor.BRIGHT_RED}        `:+ssssssssssssssss${AnsiColor.BLACK}yMNy${AnsiColor.BRIGHT_RED}sssssss+:`
+        ${AnsiColor.BRIGHT_RED}      -+ssssssssssssssssssss${AnsiColor.BLACK}yNNNNy${AnsiColor.BRIGHT_RED}sssssss+-
+        ${AnsiColor.BRIGHT_RED}    .osssssssssssssssssssss${AnsiColor.BLACK}yNMNMMNy${AnsiColor.BRIGHT_RED}sssssssso.
+        ${AnsiColor.BRIGHT_RED}   /sssasssssss${AnsiColor.BLACK}yMNNNNNNNMNNNMMNNMMMy${AnsiColor.BRIGHT_RED}sssssssss\
+        ${AnsiColor.BRIGHT_RED}  +ssssssssy${AnsiColor.BLACK}yMNMNNMNMMMMMMMMMMMNMNMMy${AnsiColor.BRIGHT_RED}sssssssss+
+        ${AnsiColor.BRIGHT_RED} /ssssssss${AnsiColor.BLACK}yNMNNMMMy${AnsiColor.BRIGHT_RED}ssssssssssss${AnsiColor.BLACK}yNNMMMNy${AnsiColor.BRIGHT_RED}ssssssss\
+        ${AnsiColor.BRIGHT_RED}.ssssssss${AnsiColor.BLACK}yNMMNMNh${AnsiColor.BRIGHT_RED}ssssssssssssssss${AnsiColor.BLACK}yNNMMMy${AnsiColor.BRIGHT_RED}ssssssss.
+        ${AnsiColor.BRIGHT_RED}+ssssss${AnsiColor.BLACK}yNMNMMMNy${AnsiColor.BRIGHT_RED}ssssssssssssssssss${AnsiColor.BLACK}yMNMMMy${AnsiColor.BRIGHT_RED}sssssss+
+        ${AnsiColor.BRIGHT_RED}ossss${AnsiColor.BLACK}yNNNNNNMNy${AnsiColor.BRIGHT_RED}hssssssssssssssssss${AnsiColor.BLACK}yMNMNMy${AnsiColor.BRIGHT_RED}ssssssso
+        ${AnsiColor.BRIGHT_RED}ossy${AnsiColor.BLACK}yNMMMNNNNMMh${AnsiColor.BRIGHT_RED}ssssssssssssssssss${AnsiColor.BLACK}yMNMNMy${AnsiColor.BRIGHT_RED}ssssssso
+        ${AnsiColor.BRIGHT_RED}+ss${AnsiColor.BLACK}yMNy${AnsiColor.BRIGHT_RED}ss${AnsiColor.BLACK}yMNMMN${AnsiColor.BLACK}y${AnsiColor.BRIGHT_RED}sssssssssssssssss${AnsiColor.BLACK}yNMMMNy${AnsiColor.BRIGHT_RED}ssssssss+
+        ${AnsiColor.BRIGHT_RED}.ss${AnsiColor.BLACK}yNy${AnsiColor.BRIGHT_RED}ssss${AnsiColor.BLACK}yNNMMM${AnsiColor.BLACK}h${AnsiColor.BRIGHT_RED}sssssssssssssss${AnsiColor.BLACK}yNMMMNy${AnsiColor.BRIGHT_RED}sssssssss.
+        ${AnsiColor.BRIGHT_RED} \${AnsiColor.BLACK}yNy${AnsiColor.BRIGHT_RED}ssssss${AnsiColor.BLACK}yNNNMMhy${AnsiColor.BRIGHT_RED}ssssssssssss${AnsiColor.BLACK}hMNMMNy${AnsiColor.BRIGHT_RED}sssssssss/
+        ${AnsiColor.BRIGHT_RED}  +sssssssssss${AnsiColor.BLACK}yMMMMMMNMNMNMNMMNMNMNMy${AnsiColor.BRIGHT_RED}sssssssss+
+        ${AnsiColor.BRIGHT_RED}   \sssssssssssss${AnsiColor.BLACK}yNMNBBNNNNMMMNNMMy${AnsiColor.BRIGHT_RED}ssssssssss/
+        ${AnsiColor.BRIGHT_RED}    .ossssssssssssssssss${AnsiColor.BLACK}yMNMNMNMy${AnsiColor.BRIGHT_RED}sssssssssso.
+        ${AnsiColor.BRIGHT_RED}      -+ssssssssssssssssss${AnsiColor.BLACK}yNMMNy${AnsiColor.BRIGHT_RED}ssssssssss+-
+        ${AnsiColor.BRIGHT_RED}        `:+ssyssssssssssssss${AnsiColor.BLACK}yNMy${AnsiColor.BRIGHT_RED}sssyss+:`
+        ${AnsiColor.BRIGHT_RED}            .-\+ooosssssssssss${AnsiColor.BLACK}yNy${AnsiColor.BRIGHT_RED}+/-.
+        ${AnsiColor.BRIGHT_YELLOW}
+                -- 只要有树叶飞舞的地方 火就会燃烧 --
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        ${AnsiColor.BLUE}:: huiuoo ${AnsiColor.BRIGHT_RED}:: ${spring.application.name} :: ${AnsiColor.BLUE} SpringBoot ${spring-boot.version} :: ${AnsiColor.YELLOW}

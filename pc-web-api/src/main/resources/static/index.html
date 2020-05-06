@@ -5,6 +5,42 @@
     <title>Title</title>
 </head>
 <body>
-<h2>hello world!</h2>
+<H1>支付测试</H1>
+<hr>
+<div class="form-container">
+    <form id="form" action="order/alipay" method="post">
+        *商户订单 :
+        <input type="text" name="orderId" value="dzcp100010001"><br>
+        *订单名称 :
+        <input type="text" name="title" value="红魔手机"><br>
+        *付款金额 :
+        <input type="text" name="totalAmout" value="0.1"><br>
+        *商品描述 :
+        <input type="text" name="body" value="红魔手机 努比亚出品游戏手机"><br>
+        <input type="button" value="支付宝支付" onclick="submitForm('http://fajxhw4fje.52http.tech/dust/pay/demo')">
+        <input type="button" value=" 微信支付  " onclick="submitForm('order/wexpay')">
+    </form>
+</div>
 </body>
+
+<script language="javascript">
+    function submitForm(action) {
+        document.getElementById("form").action = action
+        document.getElementById("form").submit()
+    }
+</script>
+
+<style>
+    .form-container {
+        padding-top: 10px;
+    }
+
+    input {
+        margin: 10px;
+
+    }
+</style>
+
+<script src="https://cdn.jsdelivr.net/npm/live2d-widget@3.0.4/lib/L2Dwidget.min.js"></script>
+
 </html>

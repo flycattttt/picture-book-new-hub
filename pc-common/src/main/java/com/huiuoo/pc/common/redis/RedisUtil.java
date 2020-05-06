@@ -1,4 +1,4 @@
-package com.huiuoo.pc.common.utils;
+package com.huiuoo.pc.common.redis;
 
 import java.util.List;
 import java.util.Map;
@@ -18,8 +18,11 @@ import org.springframework.util.CollectionUtils;
 @Component
 public final class RedisUtil {
 
-    @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private final RedisTemplate<String, Object> redisTemplate;
+
+    public RedisUtil(RedisTemplate<String, Object> redisTemplate) {
+        this.redisTemplate = redisTemplate;
+    }
 
     // =============================common============================
 

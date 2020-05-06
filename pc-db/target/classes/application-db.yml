@@ -7,6 +7,7 @@ spring:
     properties:
       hibernate.format_sql: true
     open-in-view: true
+    database-platform: org.hibernate.dialect.MySQLDialect
 
   # 格式日期
   jackson:
@@ -23,7 +24,7 @@ spring:
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
       #db-type: com.alibaba.druid.pool.DruidDataSource
 
-  ## 下面为连接池的补充设置，应用到上面所有数据源中
+  ## 下面为连接池的补充设置，应用到上面数据源中
    # 初始化大小，最小，最大
       initial-size: 5
       min-idle: 5

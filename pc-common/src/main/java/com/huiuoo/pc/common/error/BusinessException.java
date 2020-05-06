@@ -19,7 +19,6 @@ public class BusinessException extends Exception implements CommonError {
         this.commonError.setErrMsg(errMsg);
     }
 
-
     @Override
     public int getErrCode() {
         return this.commonError.getErrCode();
@@ -31,8 +30,7 @@ public class BusinessException extends Exception implements CommonError {
     }
 
     @Override
-    public CommonError setErrMsg(String errMsg) {
+    public void setErrMsg(String errMsg) {
         this.commonError.setErrMsg(errMsg);
-        return this;
     }
 }

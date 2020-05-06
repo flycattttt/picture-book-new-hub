@@ -4,7 +4,7 @@ public enum EmBusinessError implements CommonError{
 	
 	//通用错误类型10000
 	UNKNOW_ERROR(10001,"未知错误"),
-	REQUEST_PARAM_ERROR(10002,"参数缺失异常"),
+	REQUEST_PARAM_ERROR(10002,"请求参数缺失"),
 	METHOD_NOT_SUPPORETD(10003,"请求方法类型错误"),
 	NULL_POINTER(10004,"空指针异常"),
 	UPLOAD_FILE_ERROR(10005,"上传文件发生异常"),
@@ -43,9 +43,8 @@ public enum EmBusinessError implements CommonError{
 	}
 
 	@Override
-	public CommonError setErrMsg(String errMsg) {
+	public void setErrMsg(String errMsg) {
 		this.errMsg = errMsg;
-		return this;
 	}
 
 }

@@ -23,11 +23,9 @@ public class MyMvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
 
     }
-
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        InterceptorRegistration addInterceptor = registry
-                .addInterceptor(handlerInterceptor);
+        InterceptorRegistration addInterceptor = registry.addInterceptor(handlerInterceptor);
         //拦截配置
         addInterceptor.addPathPatterns("/**");
         //排除配置

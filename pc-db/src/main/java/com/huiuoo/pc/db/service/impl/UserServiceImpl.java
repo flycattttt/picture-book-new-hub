@@ -1,18 +1,13 @@
 package com.huiuoo.pc.db.service.impl;
 
-import com.huiuoo.pc.common.constant.SexType;
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.common.error.EmBusinessError;
 import com.huiuoo.pc.common.utils.CommonUtils;
 import com.huiuoo.pc.common.utils.JuheApi;
-
 import com.huiuoo.pc.db.dao.UserDao;
-import com.huiuoo.pc.db.dao.UserOAuthDao;
 import com.huiuoo.pc.db.dataobject.UserDO;
-import com.huiuoo.pc.db.dataobject.UserOAuthDO;
 import com.huiuoo.pc.db.service.IUserService;
-import com.huiuoo.pc.db.vo.OAuthCreateRequest;
-import com.huiuoo.pc.db.vo.OAuthGetRequest;
+import com.huiuoo.pc.db.vo.UserRequest;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,9 +30,6 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private UserDao userDao;
 
-    @Autowired
-    private UserOAuthDao userOAuthDao;
-
     @Override
     public String sendSms(String phone) throws BusinessException {
         if (StringUtils.isBlank(phone)) {
@@ -48,24 +40,19 @@ public class UserServiceImpl implements IUserService {
         return smsCode;
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @Override
-    public UserDO login(String phone) throws BusinessException, NoSuchAlgorithmException {
-        if (StringUtils.isBlank(phone)){
-            throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR);
-        }
-        UserDO userDO = userDao.findByPhone(phone);
+    public UserDO loginByPhone(UserRequest request) throws NoSuchAlgorithmException {
+        // 手机号码登录
+        UserDO userDO = userDao.findByPhoneAndLoginType(request.getPhone(), "phone");
         if (userDO == null) {
             // 注册用户
             userDO = new UserDO(
-                    "灰灰"+CommonUtils.getRandom(1000),
-                    phone,
-                    SexType.OTHER.getType(),
-                    ""
+                    "灰灰" + CommonUtils.getRandom(10000),
+                    request.getPhone(), "phone"
             );
-
-        }else {
+        } else {
             userDO.setLastLoginTime(new Date());
-            userDO.setUpdateTime(userDO.getLastLoginTime());
         }
         userDao.save(userDO);
         return userDO;
@@ -73,67 +60,23 @@ public class UserServiceImpl implements IUserService {
 
     @Transactional(rollbackFor = Exception.class)
     @Override
-    public UserDO authLogin(OAuthGetRequest oAuthRequest) throws BusinessException {
-        UserOAuthDO oldOauthUser = userOAuthDao.findByOauthTypeAndOpenId(oAuthRequest.getOauthType(), oAuthRequest.getOpenId());
-        if (oldOauthUser == null) {
-            throw new BusinessException(EmBusinessError.CAN_NOT_FIND_RECORD, "未找到该授权用户");
+    public UserDO loginByOAuth(UserRequest request) {
+        UserDO userDO = userDao.findByOpenIdAndLoginType(request.getOpenId(), request.getLoginType());
+        if (userDO == null) {
+            // 注册用户
+            userDO = new UserDO(
+                    request.getNickname(),
+                    request.getLoginType(),
+                    request.getOpenId(),
+                    request.getHeadImg()
+            );
+        } else {
+            // 更新用户
+            userDO.setHeadImg(request.getHeadImg());
+            userDO.setName(request.getNickname());
+            userDO.setLastLoginTime(new Date());
         }
-
-        Optional<UserDO> oldUserDO = userDao.findById(oldOauthUser.getUserId());
-        if (!oldUserDO.isPresent()) {
-            throw new BusinessException(EmBusinessError.CAN_NOT_FIND_RECORD, "未找到授权对应的用户id");
-        }
-
-        // 刷新user_oauth
-        oldOauthUser.setOauthAccessToken(oAuthRequest.getAccessToken());
-        oldOauthUser.setOauthExpires(oAuthRequest.getExpires());
-        oldOauthUser.setUpdateTime(new Date());
-        userOAuthDao.save(oldOauthUser);
-
-        // 刷新user
-        UserDO userDO = oldUserDO.get();
-        userDO.setLastLoginTime(new Date());
-        userDO.setUpdateTime(userDO.getLastLoginTime());
         userDao.save(userDO);
-        return userDO;
-    }
-
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public UserDO authRegister(OAuthCreateRequest oAuthRegRequest) throws BusinessException {
-        UserOAuthDO oldOauthUser = userOAuthDao.findByOauthTypeAndOpenId(oAuthRegRequest.getOauthType(), oAuthRegRequest.getOpenId());
-
-        if (oldOauthUser!=null){
-            throw new BusinessException(EmBusinessError.OAUTH_IS_EXIST);
-        }
-
-        // 获取user信息
-        UserDO userDO = userDao.findByPhone(oAuthRegRequest.getPhone());
-        if (userDO!=null){
-            throw new BusinessException(EmBusinessError.PHONE_IS_EXIST);
-        }
-
-        // 添加用户
-        userDO = new UserDO(
-                oAuthRegRequest.getNickname(),
-                oAuthRegRequest.getPhone(),
-                SexType.OTHER.getType(),
-                oAuthRegRequest.getHeadUrl()
-        );
-
-        userDao.save(userDO);
-
-        // 添加用户授权
-        oldOauthUser = new UserOAuthDO();
-        oldOauthUser.setOauthType(oAuthRegRequest.getOauthType());
-        oldOauthUser.setOpenId(oAuthRegRequest.getOpenId());
-        oldOauthUser.setOauthAccessToken(oAuthRegRequest.getAccessToken());
-        oldOauthUser.setOauthExpires(oAuthRegRequest.getExpires());
-        oldOauthUser.setUpdateTime(new Date());
-        // 获取新增的userId
-        oldOauthUser.setUserId(userDO.getId());
-        userOAuthDao.save(oldOauthUser);
-
         return userDO;
     }
 }

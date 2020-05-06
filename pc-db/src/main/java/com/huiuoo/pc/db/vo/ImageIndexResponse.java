@@ -1,8 +1,11 @@
 package com.huiuoo.pc.db.vo;
 
+import com.huiuoo.pc.db.dataobject.ImageDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 /**
  * @项目名称：picture-book-new
@@ -14,9 +17,8 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ImageResponse {
+public class ImageIndexResponse {
 
-    private Long id;
-    private String url;
-    private String description;
+    private List<String> types;
+    private List<ImageDO> images;
 }

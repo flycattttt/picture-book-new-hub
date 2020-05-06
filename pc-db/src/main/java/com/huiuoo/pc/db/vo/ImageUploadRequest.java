@@ -18,20 +18,17 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ImageCreateRequest {
+public class ImageUploadRequest {
 
     @NotNull(message = "图片不能为空")
     private MultipartFile file;
-
-    @NotNull(message = "图片主类别不能为空")
-    @Min(message = "图片主类别最小为1",value = 1)
-    @Max(message = "图片主类别最大为2",value = 2)
-    private Integer mainType;
-
-    @NotBlank(message = "图片副类别不能为空")
-    private String followType;
-
+    @NotNull(message = "图片类型不能为空")
+    @Min(message = "图片类型最小为1", value = 1)
+    @Max(message = "图片类型最大为3", value = 3)
+    private Integer type;
+    @NotBlank(message = "图片子类型不能为空")
+    private String materialType;
+    private String model;
     private String description;
-
     private List<String> tagList;
 }

@@ -36,27 +36,27 @@
     </appender>
 
     <!-- logger 是用来设置某一个包或者具体某一个类的日志打印级别, 以及指定的 appender -->
-    <logger name="com.huiuoo.pc" level="info" additivity="false">
+    <logger name="com.huiuoo.pc" level="error" additivity="false">
         <appender-ref ref="stdout"/>
         <appender-ref ref="system"/>
     </logger>
 
-    <logger name="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping" level="info"
+    <logger name="com.huiuoo.pc.app" level="debug" additivity="false">
+        <appender-ref ref="stdout"/>
+        <appender-ref ref="system"/>
+    </logger>
+
+    <logger name="org.springframework" level="error"
             additivity="false">
         <appender-ref ref="stdout"/>
     </logger>
 
-    <logger name="org.springframework.orm.jpa.JpaTransactionManager" level="debug"
+    <logger name="org.springframework.orm.jpa" level="error"
             additivity="false">
         <appender-ref ref="stdout"/>
     </logger>
 
-    <logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="trace"
-            additivity="false">
-        <appender-ref ref="stdout"/>
-    </logger>
-
-    <root level="warn">
+    <root level="error">
         <appender-ref ref="stdout"/>
     </root>
 </configuration>

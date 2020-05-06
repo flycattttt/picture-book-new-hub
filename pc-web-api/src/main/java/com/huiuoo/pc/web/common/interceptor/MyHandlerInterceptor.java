@@ -43,7 +43,7 @@ public class MyHandlerInterceptor implements HandlerInterceptor {
             verifyToken.verify(request);
             return true;
         } else {
-            return false;
+            return true;
         }
     }
 

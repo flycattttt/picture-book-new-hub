@@ -1,8 +1,9 @@
 package com.huiuoo.pc.db.dao;
 
 import com.huiuoo.pc.db.dataobject.ImageDO;
-import com.huiuoo.pc.db.dto.ImageDTO;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
@@ -16,9 +17,11 @@ import java.util.List;
  * @version：V1.0
  */
 @Repository
-public interface ImageDao extends JpaRepository<ImageDO, Long> {
+public interface ImageDao extends JpaRepository<ImageDO, Long>, JpaSpecificationExecutor<ImageDO> {
 
-    @Query("SELECT i from ImageTypeDO t LEFT JOIN ImageDO i on t.id = i.imageTypeId and t.delete = 1 and i.delete = 1")
-    List<ImageDO> findAllByImageTypeIdAndIdIn(Integer mainType , List<Long> idList);
+    @Query(value = "SELECT DISTINCT i.materialType FROM ImageDO i where i.type = ?1")
+    List<String> findDistinctMaterialTypeByType(Integer type);
+
+    List<ImageDO> findByTypeAndMaterialType(Integer type, String materialType, Pageable pageable);
 
 }

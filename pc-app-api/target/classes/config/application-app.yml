@@ -17,4 +17,7 @@ server:
 
 ## 日志配置
 logging:
-  config: classpath:log/logback_dev.xml
+  config: classpath:log/logback_prod.xml
+
+
+

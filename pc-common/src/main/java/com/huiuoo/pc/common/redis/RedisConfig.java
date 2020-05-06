@@ -1,4 +1,4 @@
-package com.huiuoo.pc.common.config;
+package com.huiuoo.pc.common.redis;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.PropertyAccessor;
