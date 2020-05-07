@@ -2,6 +2,7 @@ package com.huiuoo.pc.common.utils;
 
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.common.error.EmBusinessError;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 
 import java.security.NoSuchAlgorithmException;
@@ -87,5 +88,12 @@ public class CommonUtils {
                 throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR, "请填入正确的手机号");
             }
         }
+    }
+
+    /**
+     * 对字符串进行MD5加密
+     * */
+    public static String md5(String value) {
+        return DigestUtils.md5Hex(value).toUpperCase();
     }
 }

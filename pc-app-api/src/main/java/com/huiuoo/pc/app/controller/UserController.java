@@ -2,15 +2,12 @@ package com.huiuoo.pc.app.controller;
 
 import com.huiuoo.pc.app.common.jwt.JwtToken;
 import com.huiuoo.pc.app.common.jwt.JwtUserInfo;
-import com.huiuoo.pc.common.advice.BaseController;
 import com.huiuoo.pc.common.annotation.IgnoreJwtVerify;
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.common.error.EmBusinessError;
 import com.huiuoo.pc.common.redis.EmRedisKey;
 import com.huiuoo.pc.common.redis.RedisUtil;
-import com.huiuoo.pc.common.response.CommonReturnType;
 import com.huiuoo.pc.common.utils.CommonUtils;
-import com.huiuoo.pc.common.validator.ValidatorImpl;
 import com.huiuoo.pc.db.dataobject.UserDO;
 import com.huiuoo.pc.db.service.IUserService;
 import com.huiuoo.pc.db.vo.UserRequest;
@@ -18,12 +15,12 @@ import com.huiuoo.pc.db.vo.UserResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @项目名称：picture-book-new
@@ -35,7 +32,7 @@ import java.util.Map;
 @Slf4j
 @RequestMapping("user")
 @RestController
-public class UserController extends BaseController {
+public class UserController {
 
     private final IUserService userService;
 
@@ -48,7 +45,7 @@ public class UserController extends BaseController {
 
     @IgnoreJwtVerify
     @GetMapping("sendSms")
-    public CommonReturnType senSms(String phone) throws BusinessException {
+    public Object senSms(String phone) throws BusinessException {
 
         if (StringUtils.isBlank(phone)){
             throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR,"手机号码不能为空");
@@ -68,12 +65,12 @@ public class UserController extends BaseController {
         redisUtil.hset(EmRedisKey.USER_MESSAGE_CODE.getKey() + "_temporary", phone, 1, 60);
         // 验证码有效期30分钟
         redisUtil.hset(EmRedisKey.USER_MESSAGE_CODE.getKey(), phone, smsCode, 1800);
-        return CommonReturnType.create(null);
+        return null;
     }
 
     @IgnoreJwtVerify
     @PostMapping("login")
-    public CommonReturnType login(UserRequest request) throws BusinessException, NoSuchAlgorithmException {
+    public UserResponse login(UserRequest request) throws BusinessException, NoSuchAlgorithmException {
 
         // 手机号码登录
         if (!request.phoneValidate()) {
@@ -89,17 +86,17 @@ public class UserController extends BaseController {
         }
 
         UserDO userDO = userService.loginByPhone(request);
-        return CommonReturnType.create(covert2UserResponse(userDO, JwtToken.createToken(userDO.getId())));
+        return covert2UserResponse(userDO, JwtToken.createToken(userDO.getId()));
     }
 
     @IgnoreJwtVerify
     @PostMapping("OAuthLogin")
-    public CommonReturnType OAuthLogin(UserRequest request) throws BusinessException {
+    public UserResponse OAuthLogin(UserRequest request) throws BusinessException {
         if (!request.oauthValidate()){
             throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR);
         }
         UserDO userDO = userService.loginByOAuth(request);
-        return CommonReturnType.create(covert2UserResponse(userDO, JwtToken.createToken(userDO.getId())));
+        return covert2UserResponse(userDO, JwtToken.createToken(userDO.getId()));
     }
 
     private UserResponse covert2UserResponse(UserDO userDO, String token) {
@@ -115,8 +112,19 @@ public class UserController extends BaseController {
      * @return: 用户id
      */
     @PostMapping("getUserId")
-    public CommonReturnType getUserInfo() {
-        Long userId = JwtUserInfo.getCurrentUserId();
-        return CommonReturnType.create(userId);
+    public Long getUserInfo() {
+        return JwtUserInfo.getCurrentUserId();
+    }
+
+    @IgnoreJwtVerify
+    @GetMapping("test")
+    public String test() {
+        return "sadas";
+    }
+
+    @IgnoreJwtVerify
+    @GetMapping("test2")
+    public void tesasdt() {
+        
     }
 }

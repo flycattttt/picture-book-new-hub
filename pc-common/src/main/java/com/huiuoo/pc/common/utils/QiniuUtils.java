@@ -68,7 +68,7 @@ public class QiniuUtils {
     public static void uploadImage(MultipartFile file, String key) throws QiniuException, BusinessException {
 
         if (StringUtils.isBlank(key)) {
-            throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR, "图片名字不能不指定");
+            throw new BusinessException(EmBusinessError.UN_KNOW_ERROR, "生成图片名称发生错误");
         }
 
         //MultipartFile 转 字节数组

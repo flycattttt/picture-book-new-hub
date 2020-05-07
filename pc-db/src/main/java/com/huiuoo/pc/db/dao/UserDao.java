@@ -12,10 +12,6 @@ import org.springframework.stereotype.Repository;
  * @创建时间：2020/4/2
  * @version：V1.0
  */
-@Repository
 public interface UserDao extends JpaRepository<UserDO,Long> {
 
-    UserDO findByPhoneAndLoginType(String phone,String loginType);
-
-    UserDO findByOpenIdAndLoginType(String openId,String loginType);
 }

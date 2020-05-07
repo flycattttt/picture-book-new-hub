@@ -35,23 +35,17 @@ public class UserDO {
     @Column(name = "phone", nullable = false)
     private String phone;
     @Basic
-    @Column(name = "login_type", nullable = false)
-    private String loginType;
-    @Basic
-    @Column(name = "open_id")
-    private String openId;
-    @Basic
-    @Column(name = "integral")
-    private BigDecimal integral;
-    @Basic
-    @Column(name = "sex", nullable = false)
-    private Integer sex;
-    @Basic
-    @Column(name = "head_img")
-    private String headImg;
+    @Column(name = "gender", nullable = false)
+    private Integer gender;
     @Basic
     @Column(name = "birthday")
     private Date birthday;
+    @Basic
+    @Column(name = "last_login_time", nullable = false)
+    private Date lastLoginTime;
+    @Basic
+    @Column(name = "avatar")
+    private String avatar;
     @Basic
     @Column(name = "create_time", nullable = false)
     private Date createTime;
@@ -59,41 +53,9 @@ public class UserDO {
     @Column(name = "update_time", nullable = false)
     private Date updateTime;
     @Basic
-    @Column(name = "last_login_time", nullable = false)
-    private Date lastLoginTime;
+    @Column(name = "status", nullable = false)
+    private Integer status;
     @Basic
-    @Column(name = "deleted", nullable = false)
-    private Integer deleted;
-
-    // 手机号码注册对象
-
-    public UserDO(String name, String phone, String loginType) {
-        this.name = name;
-        this.phone = phone;
-        this.loginType = loginType;
-        this.openId = "";
-        this.integral = new BigDecimal(0);
-        this.sex = SexType.OTHER.getType();
-        this.headImg = "";
-        this.createTime = new Date();
-        this.updateTime = this.createTime;
-        this.lastLoginTime = this.createTime;
-        this.deleted = CommonStatus.VALID.getStatus();
-    }
-
-    // 第三方登录注册对象
-    public UserDO(String name, String loginType,
-                  String openId, String headImg) {
-        this.name = name;
-        this.phone = "";
-        this.loginType = loginType;
-        this.openId = openId;
-        this.integral = new BigDecimal(0);
-        this.sex = SexType.OTHER.getType();
-        this.headImg = headImg;
-        this.createTime = new Date();
-        this.updateTime = this.createTime;
-        this.lastLoginTime = this.createTime;
-        this.deleted = CommonStatus.VALID.getStatus();
-    }
+    @Column(name = "integral")
+    private BigDecimal integral;
 }

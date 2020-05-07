@@ -2,13 +2,7 @@ package com.huiuoo.pc.db.service;
 
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.db.dataobject.ImageDO;
-import com.huiuoo.pc.db.vo.ImageGetRequest;
-import com.huiuoo.pc.db.vo.ImageIndexResponse;
-import com.huiuoo.pc.db.vo.ImageModelResponse;
 import com.huiuoo.pc.db.vo.ImageUploadRequest;
-import com.qiniu.common.QiniuException;
-
-import java.util.List;
 
 /**
  * @项目名称：picture-book-app-new
@@ -20,11 +14,6 @@ import java.util.List;
 
 public interface IImageService {
 
-
-    ImageIndexResponse getMaterialTypeByType(Integer type);
-    List<ImageDO> getImageList(ImageGetRequest request);
-    List<ImageModelResponse> getImageModelList(ImageGetRequest request);
-
-    ImageDO uploadImage(ImageUploadRequest request,Long userId) throws QiniuException, BusinessException;
+    ImageDO uploadImage(ImageUploadRequest request) throws BusinessException;
 
 }

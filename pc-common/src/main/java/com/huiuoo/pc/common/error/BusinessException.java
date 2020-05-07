@@ -33,4 +33,5 @@ public class BusinessException extends Exception implements CommonError {
     public void setErrMsg(String errMsg) {
         this.commonError.setErrMsg(errMsg);
     }
+
 }

@@ -14,8 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.NoSuchAlgorithmException;
-import java.util.Date;
-import java.util.Optional;
 
 /**
  * @项目名称：picture-book-new
@@ -27,8 +25,8 @@ import java.util.Optional;
 @Service
 public class UserServiceImpl implements IUserService {
 
-    @Autowired
-    private UserDao userDao;
+   // @Autowired
+    //private UserDao userDao;
 
     @Override
     public String sendSms(String phone) throws BusinessException {
@@ -44,7 +42,7 @@ public class UserServiceImpl implements IUserService {
     @Override
     public UserDO loginByPhone(UserRequest request) throws NoSuchAlgorithmException {
         // 手机号码登录
-        UserDO userDO = userDao.findByPhoneAndLoginType(request.getPhone(), "phone");
+      /*  UserDO userDO = userDao.findByPhoneAndLoginType(request.getPhone(), "phone");
         if (userDO == null) {
             // 注册用户
             userDO = new UserDO(
@@ -54,14 +52,14 @@ public class UserServiceImpl implements IUserService {
         } else {
             userDO.setLastLoginTime(new Date());
         }
-        userDao.save(userDO);
-        return userDO;
+        userDao.save(userDO);*/
+        return null;
     }
 
     @Transactional(rollbackFor = Exception.class)
     @Override
     public UserDO loginByOAuth(UserRequest request) {
-        UserDO userDO = userDao.findByOpenIdAndLoginType(request.getOpenId(), request.getLoginType());
+       /* UserDO userDO = userDao.findByOpenIdAndLoginType(request.getOpenId(), request.getLoginType());
         if (userDO == null) {
             // 注册用户
             userDO = new UserDO(
@@ -76,7 +74,7 @@ public class UserServiceImpl implements IUserService {
             userDO.setName(request.getNickname());
             userDO.setLastLoginTime(new Date());
         }
-        userDao.save(userDO);
-        return userDO;
+        userDao.save(userDO);*/
+        return null;
     }
 }

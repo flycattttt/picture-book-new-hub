@@ -4,7 +4,7 @@ spring-boot:
 server:
   servlet:
     context-path: /dust
-  port: 8080
+  port: 9011
   tomcat:
     max-http-post-size: -1
     uri-encoding: UTF-8

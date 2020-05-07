@@ -19,9 +19,5 @@ import java.util.List;
 @Repository
 public interface ImageDao extends JpaRepository<ImageDO, Long>, JpaSpecificationExecutor<ImageDO> {
 
-    @Query(value = "SELECT DISTINCT i.materialType FROM ImageDO i where i.type = ?1")
-    List<String> findDistinctMaterialTypeByType(Integer type);
-
-    List<ImageDO> findByTypeAndMaterialType(Integer type, String materialType, Pageable pageable);
 
 }
