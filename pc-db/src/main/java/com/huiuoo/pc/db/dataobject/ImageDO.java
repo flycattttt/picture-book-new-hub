@@ -27,7 +27,7 @@ public class ImageDO {
     private Long id;
     @Basic
     @Column(name = "urls",nullable = false)
-    private String[] urls;
+    private String urls;
     @Basic
     @Column(name = "size",nullable = false)
     private Long size;

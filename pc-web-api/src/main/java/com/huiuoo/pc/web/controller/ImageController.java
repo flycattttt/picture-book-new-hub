@@ -1,5 +1,6 @@
 package com.huiuoo.pc.web.controller;
 
+import com.huiuoo.pc.common.annotation.IgnoreJwtVerify;
 import com.huiuoo.pc.common.constant.ImageType;
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.common.error.EmBusinessError;
@@ -35,6 +36,7 @@ public class ImageController {
         this.imageService = imageService;
     }
 
+    @IgnoreJwtVerify
     @PostMapping("upload")
     public ImageDO create(@Valid ImageUploadRequest request) throws BusinessException {
         return imageService.uploadImage(request);

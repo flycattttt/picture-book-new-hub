@@ -32,9 +32,6 @@ public class UserDO {
     @Column(name = "name", nullable = false)
     private String name;
     @Basic
-    @Column(name = "phone", nullable = false)
-    private String phone;
-    @Basic
     @Column(name = "gender", nullable = false)
     private Integer gender;
     @Basic
@@ -55,7 +52,4 @@ public class UserDO {
     @Basic
     @Column(name = "status", nullable = false)
     private Integer status;
-    @Basic
-    @Column(name = "integral")
-    private BigDecimal integral;
 }

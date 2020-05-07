@@ -31,7 +31,6 @@ public class AdminController  {
     @PostMapping("getToken")
     public String getToken(String name, String password) throws BusinessException {
         AdminDO adminDO = adminService.adminLogin(name, password);
-        String token = JwtToken.createToken(adminDO.getId());
-        return token;
+        return JwtToken.createToken(adminDO.getId());
     }
 }
