@@ -1,5 +1,6 @@
 package com.huiuoo.pc.db.vo;
 
+import com.huiuoo.pc.db.dataobject.UserDO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,14 +18,8 @@ import java.util.Date;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserResponse {
+public class UserLoginResponse {
 
-    private String name;
-    private String phone;
-    private BigDecimal integral;
-    private Integer sex;
-    private String headImg;
-    private Date createTime;
-    private Date lastLoginTime;
+    private UserDO userDO;
     private String token;
 }

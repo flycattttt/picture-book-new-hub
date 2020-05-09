@@ -1,7 +1,7 @@
 spring:
   ## SpringBoot JPA
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: none
     properties:
@@ -18,9 +18,12 @@ spring:
   datasource:
     druid:
       ## mysql连接池
-      url: jdbc:log4jdbc:mysql://localhost:3306/picture_book_new?useSSL=true&serverTimezone=GMT%2b8&characterEncoding=UTF-8
+     # url: jdbc:log4jdbc:mysql://localhost/picture_book?useSSL=true&serverTimezone=GMT%2b8&characterEncoding=UTF-8
+      #username: root
+      #password: admin
+      url: jdbc:log4jdbc:mysql://47.101.187.241:3306/picture_book?useSSL=true&serverTimezone=GMT%2b8&characterEncoding=UTF-8
       username: root
-      password: admin
+      password: '@huiuoo.com'
       driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
       #db-type: com.alibaba.druid.pool.DruidDataSource
 

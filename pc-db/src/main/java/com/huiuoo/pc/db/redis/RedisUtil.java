@@ -1,11 +1,10 @@
-package com.huiuoo.pc.common.redis;
+package com.huiuoo.pc.db.redis;
 
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
@@ -16,7 +15,7 @@ import org.springframework.util.CollectionUtils;
  * @date 2018年6月7日
  */
 @Component
-public final class RedisUtil {
+public class RedisUtil {
 
     private final RedisTemplate<String, Object> redisTemplate;
 

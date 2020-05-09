@@ -65,10 +65,10 @@ public class QiniuUtils {
     /**
      * @param file,key
      */
-    public static void uploadImage(MultipartFile file, String key) throws QiniuException, BusinessException {
+    public static void uploadImage(MultipartFile file, String key) throws QiniuException {
 
         if (StringUtils.isBlank(key)) {
-            throw new BusinessException(EmBusinessError.UN_KNOW_ERROR, "生成图片名称发生错误");
+            key = DateUtil.getMsTime();
         }
 
         //MultipartFile 转 字节数组

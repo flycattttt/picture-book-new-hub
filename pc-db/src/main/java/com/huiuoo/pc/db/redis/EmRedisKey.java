@@ -1,4 +1,4 @@
-package com.huiuoo.pc.common.redis;
+package com.huiuoo.pc.db.redis;
 
 import lombok.Getter;
 

@@ -3,7 +3,7 @@ package com.huiuoo.pc.db.service;
 
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.db.dataobject.UserDO;
-import com.huiuoo.pc.db.vo.UserRequest;
+import com.huiuoo.pc.db.vo.UserLoginRequest;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -16,11 +16,9 @@ import java.security.NoSuchAlgorithmException;
  */
 public interface IUserService {
 
-    /** 发送 6 位数验证码 */
-    String sendSms(String phone) throws BusinessException;
+    /** 发送短信验证码 */
+    void sendSms(String phone) throws BusinessException;
 
-    /** 用户使用手机号登录或注册 */
-    UserDO loginByPhone(UserRequest request) throws NoSuchAlgorithmException;
-    /** 用户使用第三方账号登录或注册 */
-    UserDO loginByOAuth(UserRequest request);
+    /** 用户登录或注册 */
+    UserDO loginByIdentity(UserLoginRequest request) throws BusinessException;
 }

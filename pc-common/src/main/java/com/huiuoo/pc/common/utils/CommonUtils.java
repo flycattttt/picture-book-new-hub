@@ -21,7 +21,7 @@ import java.util.regex.Pattern;
  */
 public class CommonUtils {
 
-    public static String generateImageUrl(String fileName,Integer type) {
+    public static String generateImageUrl(String fileName, Integer type) {
 
         StringBuilder buffer = new StringBuilder();
         buffer.append(imgNamePrefix(type));
@@ -55,18 +55,26 @@ public class CommonUtils {
      * 描述：获取 0~num 之间的int随机数
      */
     public static int getRandom(int num) throws NoSuchAlgorithmException {
-        if (num<0){
+        if (num < 0) {
             return 0;
         }
-        SecureRandom random= SecureRandom.getInstance("SHA1PRNG");
+        SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
         return random.nextInt(num);
     }
 
     /**
-     * 描述：生成短信验证码
+     * 描述：随机返回字符串数组中的字符串
      */
-    public static String getSmsCode(){
-        //按照一定的规则生成otp验证码
+    public static String randomName() {
+        String[] names = {"灰灰", "小灰", "绘绘", "我是小画家", "故事少年", "绘太狼", "天才小作家", "灰灰s1vf3", "灰灰兔", "兔灰灰"};
+        int random_index = (int) (Math.random() * names.length);
+        return names[random_index];
+    }
+
+    /**
+     * 描述：生成4位数短信验证码
+     */
+    public static String getSmsCode() {
         Random random = new Random();
         int i = random.nextInt(999);
         i += 1000;
@@ -78,8 +86,8 @@ public class CommonUtils {
      */
     public static void validatorPhone(String phone) throws BusinessException {
         String regex = "^((13[0-9])|(14[5,7,9])|(15([0-3]|[5-9]))|(166)|(17[0,1,3,5,6,7,8])|(18[0-9])|(19[8|9]))\\d{8}$";
-        if (phone.length() != 11) {
-            throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR, "手机号应为11位数");
+        if (StringUtils.isBlank(phone)) {
+            throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR, "手机号不能为空");
         } else {
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(phone);
@@ -92,7 +100,7 @@ public class CommonUtils {
 
     /**
      * 对字符串进行MD5加密
-     * */
+     */
     public static String md5(String value) {
         return DigestUtils.md5Hex(value).toUpperCase();
     }

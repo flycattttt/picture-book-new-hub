@@ -2,13 +2,12 @@ package com.huiuoo.pc.db.dataobject;
 
 
 import com.huiuoo.pc.common.constant.CommonStatus;
-import com.huiuoo.pc.common.constant.SexType;
+import com.huiuoo.pc.common.constant.GenderType;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -52,4 +51,14 @@ public class UserDO {
     @Basic
     @Column(name = "status", nullable = false)
     private Integer status;
+
+    public UserDO(String name,String avatar) {
+        this.name = name;
+        this.avatar = avatar;
+        this.gender = GenderType.OTHER.getType();
+        this.createTime = new Date();
+        this.lastLoginTime = this.createTime;
+        this.updateTime = this.createTime;
+        this.status = CommonStatus.VALID.getStatus();
+    }
 }

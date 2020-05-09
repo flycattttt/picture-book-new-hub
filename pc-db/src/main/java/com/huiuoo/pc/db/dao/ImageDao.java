@@ -19,5 +19,5 @@ import java.util.List;
 @Repository
 public interface ImageDao extends JpaRepository<ImageDO, Long>, JpaSpecificationExecutor<ImageDO> {
 
-
+    List<ImageDO> findAllByIdIn(List<Long> ids,Pageable pageable);
 }

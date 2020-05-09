@@ -38,7 +38,7 @@ public class ImageController {
 
     @IgnoreJwtVerify
     @PostMapping("upload")
-    public ImageDO create(@Valid ImageUploadRequest request) throws BusinessException {
+    public ImageDO create(@Valid ImageUploadRequest request) throws BusinessException, QiniuException {
         return imageService.uploadImage(request);
     }
 }

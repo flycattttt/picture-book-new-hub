@@ -5,7 +5,7 @@ public enum EmBusinessError implements CommonError {
     SUCCESS(200, "success"),
     //通用错误类型10000
     UN_KNOW_ERROR(10001, "未知错误"),
-    REQUEST_PARAM_ERROR(1002, "参数校验失败"),
+    REQUEST_PARAM_ERROR(1002, "参数不正确"),
     RESPONSE_ERROR(1003, "响应失败"),
     SEND_MESSAGE_CODE_ERROR(10006, "发送短信验证码发生异常"),
     SEND_MESSAGE_CODE_FORBID(10008, "频繁获取验证码"),

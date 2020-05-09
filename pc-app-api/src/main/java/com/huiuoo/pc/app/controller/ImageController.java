@@ -1,10 +1,17 @@
 package com.huiuoo.pc.app.controller;
 
 
+import com.huiuoo.pc.common.annotation.IgnoreJwtVerify;
+import com.huiuoo.pc.db.dataobject.ImageDO;
 import com.huiuoo.pc.db.service.IImageService;
+import com.huiuoo.pc.db.vo.ImageGetRequest;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+import java.util.List;
 
 /**
  * @项目名称：picture-book-new
@@ -17,44 +24,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ImageController {
 
-    private final IImageService imageService;
-
-    public ImageController(IImageService imageService) {
-        this.imageService = imageService;
-    }
+    @Autowired
+    private IImageService imageService;
 
     /**
-     * @Description: 获取图片目录
-     * @param: type 背景：1 ； 元素：2 ； 模型：3
+     * @Description: 分页获取图片
      * @return:
      */
- /*   @IgnoreJwtVerify
-    @GetMapping("/materialType/list")
-    public ImageIndexResponse getMaterialType(Integer type,Integer number) {
-
-        return imageService.getMaterialTypeByType(type,number);
-    }
-*/
-    /**
-     * @Description: 分页获取分类下的图片
-     * @param:
-     * @return:
-     */
-    /*@IgnoreJwtVerify
+    @IgnoreJwtVerify
     @GetMapping("/list")
-    public List<ImageDO> getImageList(@Valid ImageGetRequest request) {
-        return imageService.getImageList(request);
-    }*/
-
-    /**
-     * @Description: 获取模型图片
-     * @param: type：3
-     * @return:
-     */
-   /* @IgnoreJwtVerify
-    @GetMapping("/model/list")
-    public List<ImageModelResponse> getImageModelList(@Valid ImageGetRequest request) {
-        return imageService.getImageModelList(request);
+    public List<ImageDO> getByCategory(@Valid ImageGetRequest request) {
+        return imageService.findAllByCategoryId(request);
     }
-*/
+
 }

@@ -3,16 +3,16 @@ package com.huiuoo.pc.common.constant;
 import lombok.Getter;
 
 @Getter
-public enum SexType {
+public enum GenderType {
 
     OTHER(0, "未指定"),
-    WOMAN(1, "女性"),
-    MAN(2, "男性");
+    MAN(1, "男性"),
+    WOMAN(2, "女性");
 
     private Integer type;
     private String desc;
 
-    SexType(Integer type, String desc) {
+    GenderType(Integer type, String desc) {
         this.type = type;
         this.desc = desc;
     }

@@ -12,7 +12,7 @@
         <!-- rollingPolicy 的作用是当发生滚动时, 定义 RollingFileAppender 的行为 -->
         <!-- TimeBasedRollingPolicy 是最常用的滚动策略, 它根据时间指定滚动策略, 既负责滚动也负责触发滚动 -->
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
-            <fileNamePattern>./logs/pc-app.%d{yyyy-MM-dd}.log</fileNamePattern>     <!-- 必要节点 -->
+            <fileNamePattern>./logs/pc-app-%d{yyyy-MM-dd}.log</fileNamePattern>     <!-- 必要节点 -->
             <maxHistory>5</maxHistory>      <!-- 可选节点 -->
         </rollingPolicy>
         <!-- encoder 负责两件事情: 把日志信息转换为字节数组; 把字节数组写到输出流 -->
@@ -24,10 +24,6 @@
 
     <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
-<!--
-            <pattern>%yellow(%contextName-) %red(%d{yyyy-MM-dd HH:mm:ss}) %green([%thread]) %highlight(%-5level) %boldMagenta(%logger{36}) - %yellow(%msg%n)</pattern>
--->
-
             <pattern>%yellow([%d{yyyy-MM-dd HH:mm:ss:SSS}]) %red(%thread %level) %green(%logger{36})  %highlight(%L) - %yellow(%msg%n))</pattern>
             <charset>UTF-8</charset>
         </encoder>
