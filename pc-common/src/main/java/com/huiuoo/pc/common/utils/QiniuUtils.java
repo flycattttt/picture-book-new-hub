@@ -99,7 +99,7 @@ public class QiniuUtils {
      *
      * @return
      */
-    public String getDownloadUrl(String targetUrl) {
+    public static String getDownloadUrl(String targetUrl) {
         // 密钥
         Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
         String downloadUrl = auth.privateDownloadUrl(DOMAIN + targetUrl);
@@ -112,10 +112,10 @@ public class QiniuUtils {
      *
      * @param targetUrl
      */
-    public void download(String targetUrl, String imageName) {
+    public static void download(String targetUrl, String imageName) {
         //获取downloadUrl
         String downloadUrl = getDownloadUrl(targetUrl);
-        String filePath = "D:\\huiuoo\\image";
+        String filePath = "D:\\huiuoo\\image\\";
         download(downloadUrl, filePath, imageName);
     }
 

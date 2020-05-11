@@ -21,7 +21,6 @@ public class MyMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-
     }
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
@@ -29,7 +28,6 @@ public class MyMvcConfig implements WebMvcConfigurer {
         //拦截配置
         addInterceptor.addPathPatterns("/**");
         //排除配置
-       /* addInterceptor.excludePathPatterns(
-                "/swagger-ui.html/**");*/
+        //addInterceptor.excludePathPatterns();
     }
 }

@@ -20,6 +20,6 @@ public interface IImageService {
 
     ImageDO uploadImage(ImageUploadRequest request) throws BusinessException, QiniuException;
 
-    List<ImageDO> findAllByCategoryId(ImageGetRequest request);
+    List<ImageDO> findPageByCategoryId(ImageGetRequest request);
 
 }

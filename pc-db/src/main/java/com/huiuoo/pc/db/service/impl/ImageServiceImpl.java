@@ -40,6 +40,10 @@ public class ImageServiceImpl implements IImageService {
     private ImageCategoryDao imageCategoryDao;
     @Autowired
     private ImageTagDao imageTagDao;
+
+    @Autowired
+    private TagDao tagDao;
+
     @Autowired
     private CategoryMaterialDao materialDao;
     @Autowired
@@ -83,12 +87,18 @@ public class ImageServiceImpl implements IImageService {
         if (CollectionUtils.isNotEmpty(request.getTagList())) {
             // 去除重复标签
             List<String> uniqueTag = new ArrayList<>(new HashSet<>(request.getTagList()));
-            List<ImageTagDO> imageTagDOS = new ArrayList<>();
             uniqueTag.forEach(tag -> {
-                ImageTagDO imageTagDO = new ImageTagDO(imageDO.getId(), tag);
-                imageTagDOS.add(imageTagDO);
+                ImageTagDO imageTagDO = new ImageTagDO();
+                TagDO tagDO = tagDao.findByTag(tag);
+                if (tagDO == null){
+                    tagDO = new TagDO();
+                    tagDO.setTag(tag);
+                    tagDao.save(tagDO);
+                }
+                imageTagDO.setImageId(imageDO.getId());
+                imageTagDO.setTagId(tagDO.getId());
+                imageTagDao.save(imageTagDO);
             });
-            imageTagDao.saveAll(imageTagDOS);
         }
         // 增加图片-类别
         ImageCategoryDO imageCategoryDO = new ImageCategoryDO();
@@ -100,7 +110,7 @@ public class ImageServiceImpl implements IImageService {
     }
 
     @Override
-    public List<ImageDO> findAllByCategoryId(ImageGetRequest request) {
+    public List<ImageDO> findPageByCategoryId(ImageGetRequest request) {
         List<ImageCategoryDO> categoryDOS = imageCategoryDao.findAllByCategoryId(request.getCategoryId());
         if (CollectionUtils.isEmpty(categoryDOS)) {
             return Collections.emptyList();

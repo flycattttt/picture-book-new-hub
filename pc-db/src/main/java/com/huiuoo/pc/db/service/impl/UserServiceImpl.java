@@ -94,8 +94,8 @@ public class UserServiceImpl implements IUserService {
             oldUserLoginDO.setLoginType(request.getLoginType());
             oldUserLoginDO.setIdentity(request.getIdentity());
             // 添加用户
-            if (StringUtils.isNotBlank(request.getNickname()) && StringUtils.isNotBlank(request.getHeadImg())) {
-                userDO = new UserDO(request.getNickname(), request.getHeadImg());
+            if (StringUtils.isNotBlank(request.getNickName()) && StringUtils.isNotBlank(request.getHeadImg())) {
+                userDO = new UserDO(request.getNickName(), request.getHeadImg());
             } else {
                 userDO = new UserDO(CommonUtils.randomName(), "");
             }
@@ -109,16 +109,16 @@ public class UserServiceImpl implements IUserService {
                 // 用户已存在就更新信息
                 userDO = optionalUserDO.get();
                 userDO.setLastLoginTime(new Date());
-                if (StringUtils.isNotBlank(request.getNickname()) && StringUtils.isNotBlank(request.getHeadImg())) {
+                if (StringUtils.isNotBlank(request.getNickName()) && StringUtils.isNotBlank(request.getHeadImg())) {
                     userDO.setAvatar(request.getHeadImg());
-                    userDO.setName(request.getNickname());
+                    userDO.setName(request.getNickName());
                 }
                 userDao.save(userDO);
             } else {
                 // 不存在当前用户就创建用户
                 // 如果是第三方登录，用户名和头像不为空，手机号登录为用户生成昵称
-                if (StringUtils.isNotBlank(request.getNickname()) && StringUtils.isNotBlank(request.getHeadImg())) {
-                    userDO = new UserDO(request.getNickname(), request.getHeadImg());
+                if (StringUtils.isNotBlank(request.getNickName()) && StringUtils.isNotBlank(request.getHeadImg())) {
+                    userDO = new UserDO(request.getNickName(), request.getHeadImg());
                 } else {
                     userDO = new UserDO(CommonUtils.randomName(), "");
                 }

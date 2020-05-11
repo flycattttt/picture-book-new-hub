@@ -34,7 +34,7 @@ public class ImageController {
     @IgnoreJwtVerify
     @GetMapping("/list")
     public List<ImageDO> getByCategory(@Valid ImageGetRequest request) {
-        return imageService.findAllByCategoryId(request);
+        return imageService.findPageByCategoryId(request);
     }
 
 }
