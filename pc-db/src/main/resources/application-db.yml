@@ -1,7 +1,7 @@
 spring:
   ## SpringBoot JPA
   jpa:
-    show-sql: false
+    show-sql: true
     hibernate:
       ddl-auto: none
     properties:

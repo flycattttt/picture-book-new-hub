@@ -16,3 +16,4 @@ public enum CommonStatus {
         this.desc = desc;
     }
 }
+

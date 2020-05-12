@@ -11,6 +11,9 @@ import com.huiuoo.pc.db.vo.UserLoginResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
+
 /**
  * @项目名称：picture-book-new
  * @类描述：
@@ -37,8 +40,7 @@ public class UserController {
 
     @IgnoreJwtVerify
     @PostMapping("login")
-    public UserLoginResponse login(UserLoginRequest request) throws BusinessException {
-        System.out.println("-----login-----"+request.toString());
+    public UserLoginResponse login(UserLoginRequest request, HttpServletRequest servletRequest) throws BusinessException {
         UserDO userDO = userService.loginByIdentity(request);
         return new UserLoginResponse(userDO, JwtToken.createToken(userDO.getId()));
     }
@@ -46,7 +48,6 @@ public class UserController {
     @IgnoreJwtVerify
     @PostMapping("OAuthLogin")
     public UserLoginResponse OAuthLogin(UserLoginRequest request) throws BusinessException {
-        System.out.println("----oauth----"+request.toString());
         UserDO userDO = userService.loginByIdentity(request);
         return new UserLoginResponse(userDO, JwtToken.createToken(userDO.getId()));
     }

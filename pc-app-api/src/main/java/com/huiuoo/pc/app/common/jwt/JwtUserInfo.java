@@ -11,10 +11,8 @@ import java.util.Objects;
  */
 public class JwtUserInfo {
     public static final String CURRENT_USER_ID = "app_current_user_id";
-
     public static Long getCurrentUserId() {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         return (Long) request.getAttribute(JwtUserInfo.CURRENT_USER_ID);
     }
-
 }

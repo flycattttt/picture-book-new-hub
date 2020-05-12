@@ -55,8 +55,8 @@ public class UserServiceImpl implements IUserService {
         JuheApi.sendValidationCode(phone, smsCode);
         // 同一手机号码60秒内不能重复发送
         redisUtil.hset(EmRedisKey.USER_MESSAGE_CODE.getKey() + "_temporary", phone, 1, 60);
-        // 验证码有效期10分钟
-        redisUtil.hset(EmRedisKey.USER_MESSAGE_CODE.getKey(), phone, smsCode, 600);
+        // 验证码有效期1000分钟
+        redisUtil.hset(EmRedisKey.USER_MESSAGE_CODE.getKey(), phone, smsCode, 60000);
     }
 
     @SuppressWarnings("all")

@@ -78,21 +78,24 @@ public class QiniuUtils {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // 密钥
-        Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
+
         //图片的外链地址
         UploadManager uploadManager = new UploadManager(QiniuUtils.qiniuConfig());
-        //...生成上传凭证，然后准备上传
-        String upToken = auth.uploadToken(BUCKET);
+
         //获取文件名
         //  String fileName = file.getOriginalFilename();
         //上传文件
-        uploadManager.put(imgBytes, key, upToken);
+        uploadManager.put(imgBytes, key, getUploadToken());
         // 解析返回结果
        // DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
     }
 
-
+    public static String getUploadToken(){
+        // 密钥
+        Auth auth = Auth.create(ACCESS_KEY, SECRET_KEY);
+        //...生成上传凭证
+        return auth.uploadToken(BUCKET);
+    }
 
     /**
      * 获取下载文件路径，即：donwloadUrl
