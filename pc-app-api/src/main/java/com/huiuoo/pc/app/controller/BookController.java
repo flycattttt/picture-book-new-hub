@@ -23,9 +23,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @类描述：
- * @创建人：lhf
- * @创建时间：2020/5/11
+ * @项目名称：picture-book-new
+ * @类描述：绘本服务
+ * @类创建人：lhf
+ * @类创建时间：2020/5/11
  */
 @RestController
 @RequestMapping("book")

@@ -1,18 +1,14 @@
 package com.huiuoo.pc.common.advice;
 
 import com.huiuoo.pc.common.error.BusinessException;
-import com.huiuoo.pc.common.error.CommonError;
 import com.huiuoo.pc.common.error.EmBusinessError;
 import com.huiuoo.pc.common.response.CommonResponse;
 import com.qiniu.common.QiniuException;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import javax.servlet.http.HttpServletRequest;

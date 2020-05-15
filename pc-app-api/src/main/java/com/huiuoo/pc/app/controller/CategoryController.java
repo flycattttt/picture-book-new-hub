@@ -23,9 +23,10 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * @类描述：
- * @创建人：lhf
- * @创建时间：2020/5/7
+ * @项目名称：picture-book-new
+ * @类描述：物料类型服务
+ * @类创建人：lhf
+ * @类创建时间：2020/5/11
  */
 @RestController
 @RequestMapping("category")
@@ -48,12 +49,14 @@ public class CategoryController {
         if (type == null) {
             throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR);
         }
-        List<CategoryDO> categoryDOList = categoryService.findAllByMaterialType(type);
         List<CategoryIndexResponse> responseList = new ArrayList<>();
+
+        // 物料类型的子类别
+        List<CategoryDO> categoryDOList = categoryService.findAllByMaterialType(type);
+        // 查找子类别下的图片并分页
         categoryDOList.forEach(c->{
             CategoryIndexResponse response = new CategoryIndexResponse();
-            List<ImageDO> imageDOList = imageService.findPageByCategoryId(
-                    new ImageGetRequest(c.getId(),1,number));
+            List<ImageDO> imageDOList = imageService.findPageByCategoryId(new ImageGetRequest(c.getId(),1,number));
             response.setCategory(c);
             response.setImageList(imageDOList);
             responseList.add(response);

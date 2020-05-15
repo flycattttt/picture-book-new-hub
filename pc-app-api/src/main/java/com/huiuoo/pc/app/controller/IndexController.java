@@ -20,9 +20,10 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
- * @类描述：
- * @创建人：lhf
- * @创建时间：2020/5/11
+ * @项目名称：picture-book-new
+ * @类描述：app首页
+ * @类创建人：lhf
+ * @类创建时间：2020/5/11
  */
 @RestController
 @RequestMapping("index")
@@ -39,7 +40,7 @@ public class IndexController {
 
     /**
      * @Description:
-     * 2.首页显示广告和绘本
+     * 1.首页显示广告和绘本
      * 2.绘本显示评分大于1的
      * @param: number显示绘本的数量
      * @return:

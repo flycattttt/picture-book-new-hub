@@ -4,6 +4,8 @@ import com.huiuoo.pc.db.dataobject.TagDO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * @项目名称：picture-book-new
  * @类描述：
@@ -14,4 +16,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TagDao extends JpaRepository<TagDO, Long> {
     TagDO findByTag(String tag);
+
+    List<TagDO> findAllByTagIn(List<String> tags);
 }

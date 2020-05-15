@@ -10,6 +10,7 @@ import com.huiuoo.pc.db.dao.*;
 import com.huiuoo.pc.db.dataobject.*;
 import com.huiuoo.pc.db.service.IImageService;
 import com.huiuoo.pc.db.vo.ImageGetRequest;
+import com.huiuoo.pc.db.vo.ImageTagGetRequest;
 import com.huiuoo.pc.db.vo.ImageUploadRequest;
 import com.qiniu.common.QiniuException;
 import org.apache.commons.collections4.CollectionUtils;
@@ -70,13 +71,14 @@ public class ImageServiceImpl implements IImageService {
         ImageDO imageDO = new ImageDO();
         String[] urls = new String[size];
         long fileSize = 0L;
+        List<MultipartFile> fileList = request.getFileList();
         for (int i = 0; i < size; i++) {
-            MultipartFile file = request.getFileList().get(i);
+            MultipartFile file = fileList.get(i);
             // 生成图片url名称
             String imageUrl = CommonUtils.generateImageUrl(Objects.requireNonNull(file.getOriginalFilename()), categoryMaterialDO.getType());
             urls[i] = imageUrl;
             fileSize += file.getSize();
-            QiniuUtils.uploadImage(file,imageUrl);
+            QiniuUtils.uploadImage(file, imageUrl);
         }
         imageDO.setUrls(JSON.toJSONString(urls));
         imageDO.setSize(fileSize);
@@ -90,7 +92,7 @@ public class ImageServiceImpl implements IImageService {
             uniqueTag.forEach(tag -> {
                 ImageTagDO imageTagDO = new ImageTagDO();
                 TagDO tagDO = tagDao.findByTag(tag);
-                if (tagDO == null){
+                if (tagDO == null) {
                     tagDO = new TagDO();
                     tagDO.setTag(tag);
                     tagDao.save(tagDO);
@@ -121,7 +123,29 @@ public class ImageServiceImpl implements IImageService {
         }
         //排序条件
         Sort sort = new Sort(Sort.Direction.ASC, "createTime");
-        Pageable pageable = PageRequest.of(request.getPage()-1,request.getLimit(), sort);
-        return imageDao.findAllByIdIn(list,pageable);
+        Pageable pageable = PageRequest.of(request.getPage() - 1, request.getLimit(), sort);
+        return imageDao.findAllByIdIn(list, pageable);
+    }
+
+    @Override
+    public List<ImageDO> findPageByTags(ImageTagGetRequest request) {
+
+        List<String> tagList = request.getTags();
+
+        if (CollectionUtils.isEmpty(tagList)) {
+            return Collections.emptyList();
+        }
+        List<Long> tagIds = tagDao.findAllByTagIn(tagList).stream().map(TagDO::getId).collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(tagIds)) {
+            return Collections.emptyList();
+        }
+        List<Long> imageIds = imageTagDao.findAllByTagIdIn(tagIds).stream().map(ImageTagDO::getImageId).collect(Collectors.toList());
+        if (CollectionUtils.isEmpty(imageIds)) {
+            return Collections.emptyList();
+        }
+        //排序条件
+        Sort sort = new Sort(Sort.Direction.ASC, "createTime");
+        Pageable pageable = PageRequest.of(request.getPage() - 1, request.getLimit(), sort);
+        return new ArrayList<>(imageDao.findAllByIdIn(imageIds, pageable));
     }
 }

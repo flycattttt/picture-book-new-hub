@@ -19,7 +19,6 @@ public enum EmBusinessError implements CommonError {
     SMSCODE_IS_ERROR(20006, "验证码错误"),
     OAUTH_IS_EXIST(20007, "授权账户已存在");
 
-
     private int errCode;
     private String errMsg;
 

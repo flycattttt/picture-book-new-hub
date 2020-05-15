@@ -1,5 +1,6 @@
 package com.huiuoo.pc.db.service.impl;
 
+import com.alibaba.fastjson.JSON;
 import com.huiuoo.pc.common.constant.LoginType;
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.common.error.EmBusinessError;
@@ -21,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.annotation.Resource;
 import java.util.Date;
 import java.util.Optional;
+import java.util.UUID;
 
 /**
  * @项目名称：picture-book-new
@@ -65,7 +67,7 @@ public class UserServiceImpl implements IUserService {
     public UserDO loginByIdentity(UserLoginRequest request) throws BusinessException {
 
         // 手机号码登录需要验证验证码
-        if (request.getLoginType() == null){
+        if (request.getLoginType() == null) {
             // 手机号码登录参数
             if (!request.phoneValidate()) {
                 throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR);
@@ -77,8 +79,8 @@ public class UserServiceImpl implements IUserService {
             }
             // 登录方式为手机
             request.setLoginType(LoginType.PHONE.getType());
-        }else {
-            if (!request.oauthValidate()){
+        } else {
+            if (!request.oauthValidate()) {
                 throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR);
             }
         }
@@ -128,6 +130,15 @@ public class UserServiceImpl implements IUserService {
             }
         }
         return userDO;
+    }
+
+    @SuppressWarnings("all")
+    @Override
+    public String voucher(Long id) {
+        UserDO userDO = userDao.findById(id).get();
+        String uuid = UUID.randomUUID().toString().toUpperCase();
+        redisUtil.hset(EmRedisKey.APP_USER_ID.getKey(),uuid, JSON.toJSONString(userDO),60*10);// 10 分钟有效期
+        return uuid;
     }
 
 }

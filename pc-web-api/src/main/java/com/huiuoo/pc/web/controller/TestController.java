@@ -13,9 +13,8 @@ import javax.validation.Valid;
 /**
  * @项目名称：picture-book-new
  * @类描述：测试项目接口是否能正常访问
- * @创建人：lhf
- * @创建时间：2020/3/17
- * @version：V1.0
+ * @类创建人：lhf
+ * @类创建时间：2020/5/11
  */
 @RequestMapping("test")
 @Controller
