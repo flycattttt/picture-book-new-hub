@@ -1,0 +1,9 @@
+[2020-05-18 14:58:31:572] main INFO com.huiuoo.pc.web.WebApplication 50 - Starting WebApplication on 这台电脑不太冷 with PID 10312 (D:\Work\huiuoo\picture-book-new\pc-web-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-18 14:58:31:759] main INFO com.huiuoo.pc.web.WebApplication 650 - The following profiles are active: app,common,db
+[2020-05-18 14:58:45:671] main INFO com.huiuoo.pc.web.WebApplication 59 - Started WebApplication in 15.379 seconds (JVM running for 21.889)
+[2020-05-18 14:59:04:082] main INFO com.huiuoo.pc.web.WebApplication 50 - Starting WebApplication on 这台电脑不太冷 with PID 17048 (D:\Work\huiuoo\picture-book-new\pc-web-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-18 14:59:04:091] main INFO com.huiuoo.pc.web.WebApplication 650 - The following profiles are active: app,common,db
+[2020-05-18 14:59:12:718] main INFO com.huiuoo.pc.web.WebApplication 59 - Started WebApplication in 9.674 seconds (JVM running for 12.589)
+[2020-05-18 15:00:06:501] main INFO com.huiuoo.pc.web.WebApplication 50 - Starting WebApplication on 这台电脑不太冷 with PID 7980 (D:\Work\huiuoo\picture-book-new\pc-web-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-18 15:00:06:504] main INFO com.huiuoo.pc.web.WebApplication 650 - The following profiles are active: app,common,db
+[2020-05-18 15:00:14:121] main INFO com.huiuoo.pc.web.WebApplication 59 - Started WebApplication in 8.43 seconds (JVM running for 10.951)

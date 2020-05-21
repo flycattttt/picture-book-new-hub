@@ -1,0 +1,3 @@
+[2020-05-20 17:54:54:949] main INFO com.huiuoo.pc.web.WebApplication 50 - Starting WebApplication on 这台电脑不太冷 with PID 12552 (D:\Work\huiuoo\picture-book-new\pc-web-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-20 17:54:54:957] main INFO com.huiuoo.pc.web.WebApplication 650 - The following profiles are active: app,common,db
+[2020-05-20 17:55:03:202] main INFO com.huiuoo.pc.web.WebApplication 59 - Started WebApplication in 9.643 seconds (JVM running for 12.086)

@@ -1,0 +1,27 @@
+[2020-05-19 09:57:56:867] main INFO com.huiuoo.pc.web.WebApplication 50 - Starting WebApplication on 这台电脑不太冷 with PID 2196 (D:\Work\huiuoo\picture-book-new\pc-web-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-19 09:57:56:873] main INFO com.huiuoo.pc.web.WebApplication 650 - The following profiles are active: app,common,db
+[2020-05-19 09:59:10:391] main INFO com.huiuoo.pc.web.WebApplication 50 - Starting WebApplication on 这台电脑不太冷 with PID 9128 (D:\Work\huiuoo\picture-book-new\pc-web-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-19 09:59:10:394] main INFO com.huiuoo.pc.web.WebApplication 650 - The following profiles are active: app,common,db
+[2020-05-19 10:00:01:035] main INFO com.huiuoo.pc.web.WebApplication 50 - Starting WebApplication on 这台电脑不太冷 with PID 12092 (D:\Work\huiuoo\picture-book-new\pc-web-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-19 10:00:01:040] main INFO com.huiuoo.pc.web.WebApplication 650 - The following profiles are active: app,common,db
+[2020-05-19 10:00:59:791] main INFO com.huiuoo.pc.web.WebApplication 50 - Starting WebApplication on 这台电脑不太冷 with PID 11392 (D:\Work\huiuoo\picture-book-new\pc-web-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-19 10:00:59:794] main INFO com.huiuoo.pc.web.WebApplication 650 - The following profiles are active: app,common,db
+[2020-05-19 10:02:05:286] main INFO com.huiuoo.pc.web.WebApplication 50 - Starting WebApplication on 这台电脑不太冷 with PID 16320 (D:\Work\huiuoo\picture-book-new\pc-web-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-19 10:02:05:289] main INFO com.huiuoo.pc.web.WebApplication 650 - The following profiles are active: app,common,db
+[2020-05-19 10:02:11:811] main INFO com.huiuoo.pc.web.WebApplication 59 - Started WebApplication in 7.485 seconds (JVM running for 9.506)
+[2020-05-19 10:03:26:406] http-nio-9011-exec-30 ERROR c.h.p.c.advice.GlobalExceptionAdvice 46 - 未知错误 请求URL:/dust/recommend/add,错误信息:HV000030: No validator could be found for constraint 'javax.validation.constraints.NotBlank' validating type 'java.lang.Long'. Check configuration for 'recomId'
+[2020-05-19 10:04:18:397] main INFO com.huiuoo.pc.web.WebApplication 50 - Starting WebApplication on 这台电脑不太冷 with PID 2804 (D:\Work\huiuoo\picture-book-new\pc-web-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-19 10:04:18:401] main INFO com.huiuoo.pc.web.WebApplication 650 - The following profiles are active: app,common,db
+[2020-05-19 10:04:25:855] main INFO com.huiuoo.pc.web.WebApplication 59 - Started WebApplication in 8.546 seconds (JVM running for 11.078)
+[2020-05-19 10:04:29:772] http-nio-9011-exec-2 ERROR c.h.p.c.advice.GlobalExceptionAdvice 46 - 未知错误 请求URL:/dust/recommend/add,错误信息:HV000030: No validator could be found for constraint 'javax.validation.constraints.NotBlank' validating type 'java.lang.Long'. Check configuration for 'imageId'
+[2020-05-19 10:04:57:105] main INFO com.huiuoo.pc.web.WebApplication 50 - Starting WebApplication on 这台电脑不太冷 with PID 9872 (D:\Work\huiuoo\picture-book-new\pc-web-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-19 10:04:57:109] main INFO com.huiuoo.pc.web.WebApplication 650 - The following profiles are active: app,common,db
+[2020-05-19 10:05:02:988] main INFO com.huiuoo.pc.web.WebApplication 59 - Started WebApplication in 6.878 seconds (JVM running for 9.053)
+[2020-05-19 10:06:04:559] main INFO com.huiuoo.pc.app.AppApplication 50 - Starting AppApplication on 这台电脑不太冷 with PID 24496 (D:\Work\huiuoo\picture-book-new\pc-app-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-19 10:06:04:562] main DEBUG com.huiuoo.pc.app.AppApplication 53 - Running with Spring Boot v2.1.6.RELEASE, Spring v5.1.8.RELEASE
+[2020-05-19 10:06:04:563] main INFO com.huiuoo.pc.app.AppApplication 650 - The following profiles are active: app,common,db
+[2020-05-19 10:06:10:061] main INFO com.huiuoo.pc.app.AppApplication 59 - Started AppApplication in 6.386 seconds (JVM running for 10.742)
+[2020-05-19 10:08:55:160] main INFO com.huiuoo.pc.app.AppApplication 50 - Starting AppApplication on 这台电脑不太冷 with PID 9224 (D:\Work\huiuoo\picture-book-new\pc-app-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-19 10:08:55:163] main DEBUG com.huiuoo.pc.app.AppApplication 53 - Running with Spring Boot v2.1.6.RELEASE, Spring v5.1.8.RELEASE
+[2020-05-19 10:08:55:163] main INFO com.huiuoo.pc.app.AppApplication 650 - The following profiles are active: app,common,db
+[2020-05-19 10:09:00:675] main INFO com.huiuoo.pc.app.AppApplication 59 - Started AppApplication in 6.283 seconds (JVM running for 8.686)

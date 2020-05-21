@@ -1,0 +1,3 @@
+[2020-05-21 11:10:26:214] main INFO com.huiuoo.pc.app.AppApplication 50 - Starting AppApplication on 这台电脑不太冷 with PID 16360 (D:\Work\huiuoo\picture-book-new\pc-app-api\target\classes started by 小刘 in D:\Work\huiuoo\picture-book-new)
+[2020-05-21 11:10:26:272] main DEBUG com.huiuoo.pc.app.AppApplication 53 - Running with Spring Boot v2.1.6.RELEASE, Spring v5.1.8.RELEASE
+[2020-05-21 11:10:26:275] main INFO com.huiuoo.pc.app.AppApplication 650 - The following profiles are active: app,common,db
