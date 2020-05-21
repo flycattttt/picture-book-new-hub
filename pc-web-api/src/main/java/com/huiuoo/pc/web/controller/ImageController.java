@@ -18,6 +18,7 @@ import com.qiniu.common.QiniuException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -46,29 +47,57 @@ public class ImageController {
         this.categoryService = categoryService;
     }
 
-    @IgnoreJwtVerify
+    /**
+     * @Description: 上传图片
+     * @param:
+     * @return:
+     */
     @PostMapping("upload")
     public ImageDO create(@Valid ImageUploadRequest request) throws BusinessException, QiniuException {
         return imageService.uploadImage(request);
     }
 
-
-    @IgnoreJwtVerify
-    @RequestMapping("type")
+    /**
+     * @Description: [TODO]临时提供下载全部图片
+     * @param:
+     * @return:
+     */
+    @RequestMapping("download")
     public void download(Integer type) throws BusinessException {
         List<CategoryDO> materialType = categoryService.findAllByMaterialType(type);
         ImageGetRequest request = new ImageGetRequest();
         request.setPage(1);
         request.setLimit(100000);
         materialType.forEach(m->{
-            System.out.println("下载"+m.getName()+".........");
+            log.info("下载{}",m.getName());
             request.setCategoryId(m.getId());
             imageService.findPageByCategoryId(request).forEach(i->{
                 List<String> list = JSONArray.parseArray(i.getUrls(), String.class);
                 QiniuUtils.download(list.get(0),list.get(0));
             });
-            System.out.println(m.getName()+"下载完毕。");
+            log.info("{}下载完毕。",m.getName());
         });
+    }
+
+    /**
+     * @Description: 分页分类获取图片
+     * @param:
+     * @return:
+     */
+    @GetMapping("category")
+    public List<ImageDO> category(@Valid ImageGetRequest request){
+        return imageService.findPageByCategoryId(request);
+    }
+
+    /**
+     * @Description: 分页获取图片
+     * @param:
+     * @return:
+     */
+    @IgnoreJwtVerify
+    @GetMapping("list")
+    public List<ImageDO> list(Integer page,Integer limit) throws BusinessException {
+        return imageService.findPageAll(page, limit);
     }
 
 }

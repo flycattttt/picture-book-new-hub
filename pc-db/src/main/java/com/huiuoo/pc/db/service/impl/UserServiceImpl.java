@@ -62,8 +62,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     @SuppressWarnings("all")
-    @Transactional(rollbackFor = Exception.class)
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public UserDO loginByIdentity(UserLoginRequest request) throws BusinessException {
 
         // 手机号码登录需要验证验证码
@@ -132,10 +132,13 @@ public class UserServiceImpl implements IUserService {
         return userDO;
     }
 
-    @SuppressWarnings("all")
     @Override
-    public String voucher(Long id) {
-        UserDO userDO = userDao.findById(id).get();
+    public String voucher(Long id) throws BusinessException {
+        Optional<UserDO> optionalUserDO = userDao.findById(id);
+        if (!optionalUserDO.isPresent()){
+            throw new BusinessException(EmBusinessError.CAN_NOT_FIND_RECORD);
+        }
+        UserDO userDO = optionalUserDO.get();
         String uuid = UUID.randomUUID().toString().toUpperCase();
         redisUtil.hset(EmRedisKey.APP_USER_ID.getKey(),uuid, JSON.toJSONString(userDO),60*10);// 10 分钟有效期
         return uuid;

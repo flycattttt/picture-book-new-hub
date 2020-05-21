@@ -18,7 +18,7 @@ public class VerifyToken {
 
     public void verify(HttpServletRequest request) throws BusinessException {
 
-        String token = request.getHeader("PB-TOKEN");
+        String token = request.getHeader("DUST-TOKEN");
         if (null == token || token.isEmpty()) {
             throw new BusinessException(EmBusinessError.STATUS_IS_ERROR);
         }

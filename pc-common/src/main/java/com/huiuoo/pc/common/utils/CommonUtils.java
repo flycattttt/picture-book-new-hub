@@ -2,6 +2,7 @@ package com.huiuoo.pc.common.utils;
 
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.common.error.EmBusinessError;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 
@@ -46,19 +47,29 @@ public class CommonUtils {
                 return "element_";
             case 3:
                 return "model_";
+            case 4:
+                return "cover_";
+            case 5:
+                return "font_";
             default:
                 return "other_";
         }
     }
 
     /**
-     * 描述：获取 0~num 之间的int随机数
+     * 描述：获取 0~(num-1) 之间的int随机数
      */
-    public static int getRandom(int num) throws NoSuchAlgorithmException {
+    public static int getRandom(int num) throws BusinessException {
         if (num < 0) {
             return 0;
         }
-        SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
+        SecureRandom random = null;
+        try {
+            random = SecureRandom.getInstance("SHA1PRNG");
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+            throw new BusinessException(EmBusinessError.RESPONSE_ERROR,"获取随机数失败");
+        }
         return random.nextInt(num);
     }
 

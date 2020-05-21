@@ -16,6 +16,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -36,6 +37,7 @@ public class PraiseServiceImpl implements IPraiseService {
     private BookDao bookDao;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void add(PraiseRequest request, Long userId) throws BusinessException {
         Optional<BookDO> bookDO = bookDao.findById(request.getBookId());
         if (!bookDO.isPresent()){
@@ -49,6 +51,7 @@ public class PraiseServiceImpl implements IPraiseService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void del(PraiseRequest request, Long userId) {
         PraiseDO praiseDO = praiseDao.findByBookIdAndUserId(request.getBookId(), userId);
         if (praiseDO != null) {

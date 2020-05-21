@@ -50,8 +50,8 @@ public class ImageServiceImpl implements IImageService {
     @Autowired
     private CategoryDao categoryDao;
 
-    @Transactional(rollbackFor = Exception.class)
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public ImageDO uploadImage(ImageUploadRequest request) throws BusinessException, QiniuException {
 
         // 判断categoryId是否存在
@@ -147,5 +147,16 @@ public class ImageServiceImpl implements IImageService {
         Sort sort = new Sort(Sort.Direction.ASC, "createTime");
         Pageable pageable = PageRequest.of(request.getPage() - 1, request.getLimit(), sort);
         return new ArrayList<>(imageDao.findAllByIdIn(imageIds, pageable));
+    }
+
+    @Override
+    public List<ImageDO> findPageAll(Integer page,Integer limit) throws BusinessException {
+        //排序条件
+        if (page == null ||page<1 || limit<0){
+            throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR);
+        }
+        Sort sort = new Sort(Sort.Direction.DESC, "createTime");
+        Pageable pageable = PageRequest.of(page - 1, limit, sort);
+        return imageDao.findAll(pageable).getContent();
     }
 }

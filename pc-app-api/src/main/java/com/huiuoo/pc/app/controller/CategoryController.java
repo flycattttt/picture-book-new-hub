@@ -46,11 +46,8 @@ public class CategoryController {
     @IgnoreJwtVerify
     @GetMapping("/index/list")
     public List<CategoryIndexResponse> indexList(Integer type, Integer number) throws BusinessException {
-        if (type == null) {
-            throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR);
-        }
-        List<CategoryIndexResponse> responseList = new ArrayList<>();
 
+        List<CategoryIndexResponse> responseList = new ArrayList<>();
         // 物料类型的子类别
         List<CategoryDO> categoryDOList = categoryService.findAllByMaterialType(type);
         // 查找子类别下的图片并分页
@@ -62,6 +59,17 @@ public class CategoryController {
             responseList.add(response);
         });
         return responseList;
+    }
+
+    /**
+     * @Description: 获取素材下的所有分类
+     * @param: type-物料类型（1背景，2元素，3模型）
+     * @return:
+     */
+    @IgnoreJwtVerify
+    @GetMapping("/list")
+    public List<CategoryDO> list(Integer type) throws BusinessException {
+        return categoryService.findAllByMaterialType(type);
     }
 
 }

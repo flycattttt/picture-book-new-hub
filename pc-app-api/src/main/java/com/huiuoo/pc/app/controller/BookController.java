@@ -3,13 +3,10 @@ package com.huiuoo.pc.app.controller;
 import com.huiuoo.pc.app.common.jwt.JwtUserInfo;
 import com.huiuoo.pc.common.annotation.IgnoreJwtVerify;
 import com.huiuoo.pc.common.error.BusinessException;
-import com.huiuoo.pc.common.error.EmBusinessError;
 import com.huiuoo.pc.common.utils.QiniuUtils;
-import com.huiuoo.pc.db.dataobject.AdDO;
 import com.huiuoo.pc.db.dataobject.BookDO;
-import com.huiuoo.pc.db.dataobject.TypeDO;
 import com.huiuoo.pc.db.service.*;
-import com.huiuoo.pc.db.vo.BookCreateRequest;
+import com.huiuoo.pc.db.vo.BookAddRequest;
 import com.huiuoo.pc.db.vo.BookGetRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -69,7 +66,7 @@ public class BookController {
      * @return:
      */
     @PostMapping("add")
-    public BookDO add(@Valid BookCreateRequest request){
+    public BookDO add(@Valid BookAddRequest request){
         return bookService.addBook(request, JwtUserInfo.getCurrentUserId());
     }
 

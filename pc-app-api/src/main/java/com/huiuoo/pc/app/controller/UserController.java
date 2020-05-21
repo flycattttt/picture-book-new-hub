@@ -77,7 +77,7 @@ public class UserController {
      * @return: redis中存储的用户信息的key
      */
     @GetMapping("voucher")
-    public String voucher() {
+    public String voucher() throws BusinessException {
         return userService.voucher(JwtUserInfo.getCurrentUserId());
     }
 }

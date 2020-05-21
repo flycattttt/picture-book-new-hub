@@ -22,5 +22,5 @@ public interface IUserService {
     /** 用户登录或注册 */
     UserDO loginByIdentity(UserLoginRequest request) throws BusinessException;
 
-    String voucher(Long id);
+    String voucher(Long id) throws BusinessException;
 }

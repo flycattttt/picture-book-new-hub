@@ -15,6 +15,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,6 +36,7 @@ public class CollectServiceImpl implements ICollectService {
     private BookDao bookDao;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void add(Long bookId, Long userId) throws BusinessException {
         if (null == bookId){
             throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR);
@@ -51,6 +53,7 @@ public class CollectServiceImpl implements ICollectService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public void del(Long bookId, Long userId) throws BusinessException {
         if (null == bookId){
             throw new BusinessException(EmBusinessError.REQUEST_PARAM_ERROR);

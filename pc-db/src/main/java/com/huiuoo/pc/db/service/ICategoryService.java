@@ -14,9 +14,10 @@ import java.util.List;
  */
 public interface ICategoryService {
 
+    List<CategoryDO> findAllByMaterialType(Integer type) throws BusinessException;
+
     CategoryDO addCategory(CategoryRequest request) throws BusinessException;
 
-    List<CategoryDO> findAllByMaterialType(Integer type) throws BusinessException;
 
     /** app编辑页面获取图片分类及图片数组 */
  //   CategoryIndexResponse getByIndexList(Integer type);

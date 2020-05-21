@@ -8,13 +8,14 @@ import com.huiuoo.pc.db.dao.BookTypeDao;
 import com.huiuoo.pc.db.dataobject.BookDO;
 import com.huiuoo.pc.db.dataobject.BookTypeDO;
 import com.huiuoo.pc.db.service.IBookService;
-import com.huiuoo.pc.db.vo.BookCreateRequest;
+import com.huiuoo.pc.db.vo.BookAddRequest;
 import com.huiuoo.pc.db.vo.BookGetRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -46,7 +47,8 @@ public class BookServiceImpl implements IBookService {
     }
 
     @Override
-    public BookDO addBook(BookCreateRequest request, Long userId) {
+    @Transactional(rollbackFor = Exception.class)
+    public BookDO addBook(BookAddRequest request, Long userId) {
         BookDO bookDO = new BookDO(userId,request.getCover(),request.getContent(),request.getNickName(),request.getTitle());
         return bookDao.save(bookDO);
     }

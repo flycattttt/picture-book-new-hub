@@ -24,4 +24,6 @@ public interface IImageService {
     List<ImageDO> findPageByCategoryId(ImageGetRequest request);
 
     List<ImageDO> findPageByTags(ImageTagGetRequest request);
+
+    List<ImageDO> findPageAll(Integer page,Integer limit) throws BusinessException;
 }

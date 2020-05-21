@@ -32,25 +32,6 @@ public class CategoryServiceImpl implements ICategoryService {
     @Autowired
     private CategoryMaterialDao materialDao;
 
-    @Transactional(rollbackFor = Exception.class)
-    @Override
-    public CategoryDO addCategory(CategoryRequest request) {
-        CategoryDO categoryDO = categoryDao.findByMaterialTypeAndName(request.getType(), request.getName(),request.getPid());
-        if (categoryDO == null) {
-            categoryDO = new CategoryDO();
-            categoryDO.setPid(request.getPid());
-            categoryDO.setHierarchy(String.format("%S%S", String.valueOf(request.getPid()), "-"));
-            categoryDO.setName(request.getName());
-            categoryDao.save(categoryDO);
-
-            CategoryMaterialDO categoryMaterialDO = new CategoryMaterialDO();
-            categoryMaterialDO.setType(request.getType());
-            categoryMaterialDO.setCategoryId(categoryDO.getId());
-            materialDao.save(categoryMaterialDO);
-        }
-        return categoryDO;
-    }
-
     @Override
     public List<CategoryDO> findAllByMaterialType(Integer type) throws BusinessException {
         if (type == null) {
@@ -69,5 +50,25 @@ public class CategoryServiceImpl implements ICategoryService {
         }
 
         return categoryDao.findAllByIdIn(idList);
+    }
+
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public CategoryDO addCategory(CategoryRequest request) {
+        CategoryDO categoryDO = categoryDao.findByMaterialTypeAndName(request.getType(), request.getName(),request.getPid());
+        if (categoryDO == null) {
+            categoryDO = new CategoryDO();
+            categoryDO.setPid(request.getPid());
+            categoryDO.setHierarchy(String.format("%S%S", String.valueOf(request.getPid()), "-"));
+            categoryDO.setName(request.getName());
+            categoryDao.save(categoryDO);
+
+            CategoryMaterialDO categoryMaterialDO = new CategoryMaterialDO();
+            categoryMaterialDO.setType(request.getType());
+            categoryMaterialDO.setCategoryId(categoryDO.getId());
+            materialDao.save(categoryMaterialDO);
+        }
+        return categoryDO;
     }
 }

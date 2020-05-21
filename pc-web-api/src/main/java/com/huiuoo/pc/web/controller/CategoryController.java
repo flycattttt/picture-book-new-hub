@@ -1,8 +1,6 @@
 package com.huiuoo.pc.web.controller;
 
-import com.huiuoo.pc.common.annotation.IgnoreJwtVerify;
 import com.huiuoo.pc.common.error.BusinessException;
-import com.huiuoo.pc.common.error.EmBusinessError;
 import com.huiuoo.pc.db.dataobject.CategoryDO;
 import com.huiuoo.pc.db.service.ICategoryService;
 import com.huiuoo.pc.db.vo.CategoryRequest;
@@ -29,17 +27,15 @@ public class CategoryController {
     private ICategoryService categoryService;
 
     /** 
-     * @Description: 
+     * @Description: 获取指定类型下的二级分类
      * @param: type-物料类型（1背景，2元素，3模型）
      * @return:  
      */
-    @IgnoreJwtVerify
     @GetMapping("/list")
-    public List<CategoryDO> getOrSaveCategory(Integer type) throws BusinessException {
+    public List<CategoryDO> list(Integer type) throws BusinessException {
         return categoryService.findAllByMaterialType(type);
     }
 
-    @IgnoreJwtVerify
     @PostMapping("/add")
     public CategoryDO addCategory(@Valid CategoryRequest request) throws BusinessException {
         return categoryService.addCategory(request);

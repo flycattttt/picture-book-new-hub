@@ -2,7 +2,7 @@ package com.huiuoo.pc.db.service;
 
 import com.huiuoo.pc.common.error.BusinessException;
 import com.huiuoo.pc.db.dataobject.BookDO;
-import com.huiuoo.pc.db.vo.BookCreateRequest;
+import com.huiuoo.pc.db.vo.BookAddRequest;
 import com.huiuoo.pc.db.vo.BookGetRequest;
 
 import java.util.List;
@@ -16,7 +16,7 @@ public interface IBookService {
 
     List<BookDO> findPageByTypeId(BookGetRequest request);
 
-    BookDO addBook(BookCreateRequest request,Long userId);
+    BookDO addBook(BookAddRequest request, Long userId);
 
     BookDO getBook(Long bookId) throws BusinessException;
 }

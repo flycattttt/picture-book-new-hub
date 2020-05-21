@@ -14,7 +14,7 @@ import javax.validation.constraints.NotBlank;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class BookCreateRequest {
+public class BookAddRequest {
 
     @NotBlank(message = "title不能为空")
     private String title;
